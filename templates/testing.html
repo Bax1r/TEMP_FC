@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" 
+        content="IE=edge">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+    <title>Build a Survey Form using HTML and CSS</title>
+
+    <style>
+        /* Styling the Body element 
+        i.e. Color, Font, Alignment */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #fed000;
+            font-family: Verdana;
+            text-align: center;
+        }
+        
+        header{
+            background-color: #000000;
+            padding: 22px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+            font-size: 35px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        header img {
+            margin-right: 1px; /* Adjust the spacing as needed */
+        }
+
+        header span{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        footer {
+            background-color: #000000;
+            text-align: center;
+            padding: 20px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+        </a>
+        <a href="{{ url_for('survey') }}">Survey</a>
+        <span>Testing</span>
+    </header>
+    
+    <footer>
+        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

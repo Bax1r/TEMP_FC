@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" 
+        content="IE=edge">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+    <title>Build a Survey Form using HTML and CSS</title>
+
+    <style>
+        /* Styling the Body element 
+        i.e. Color, Font, Alignment */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #fed000;
+            font-family: Verdana;
+            text-align: center;
+        }
+        
+        header{
+            background-color: #000000;
+            padding: 22px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+            font-size: 35px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        header img {
+            margin-right: 1px; /* Adjust the spacing as needed */
+        }
+
+        header span{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        footer {
+            background-color: #000000;
+            text-align: center;
+            padding: 20px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        /* Styling the Form (Color, Padding, Shadow) */
+        form {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styling form-control Class */
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        /* Styling form-control Label */
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Styling form-control input, 
+        select, textarea */
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+
+        /* Styling form-control Radio 
+        button and Checkbox */
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
+        }
+
+        /* Styling Button */
+        button {
+            background-color: #05c46b;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 21px;
+            display: block;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+        </a>
+        <a href="{{ url_for('survey') }}">Survey</a>
+        <span>Testing</span>
+    </header>
+
+    <!-- Create Form -->
+    <form action="/survey" method="POST">
+        <div class="form-control">
+            <label for="firstname">
+                First Name:
+            </label>
+
+            <input type="text" name="firstname"
+                    placeholder="Enter your first name"/>
+        </div>
+
+        <div class="form-control">
+            <label for="lastname">
+                Last Name:
+            </label>
+
+            <input type="text" name="lastname"
+                    placeholder="Enter your last name"/>
+        </div>
+
+        <div class="form-control">
+            <label for="email">
+                Email:
+            </label>
+
+            <input type="text" name="email"
+                    placeholder="Enter your email"/>
+        </div>
+        
+        <div class="form-control">
+            <label for="age">
+                Age:
+            </label>
+
+            <input type="text" name="age"
+                    placeholder="Enter your age"/>
+        </div>
+
+        <div class="form-control">
+            <label for="role">
+                Which option best describes you?
+            </label>
+
+            <!-- Dropdown options -->
+            <select name="role">
+                <option value="student">Student</option>
+                <option value="intern">Intern</option>
+                <option value="professional">Professional</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label>
+                Have you participated in a community event in the past?
+            </label>
+
+            <!-- Input Type Radio Button -->
+            <select name="recommend">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Maybe">Maybe</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label>
+                What is your ethnicity/race?
+            </label>
+
+            <!-- Input Type Radio Button -->
+            <select name="race">
+                <option value="White">White</option>
+                <option value="Black or African American">Black or African American</option>
+                <option value="Asian">Asian</option>
+                <option value="Native Hawaiian or Pacific Islander">Native Hawaiian or Pacific Islander</option>
+                <option value="Native American">Native American</option>
+                <option value="Hispanic or Latine">Hispanic or Latine</option>
+                <option value="Mixed">Mixed</option>
+                <option value="Prefer Not to Answer">Prefer Not to Answer</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="comment">
+                Any comments or suggestions?
+            </label>
+
+            <!-- multi-line text input control -->
+            <textarea name="comment" 
+                    placeholder="Enter your comment here">
+            </textarea>
+        </div>
+
+        <!-- Multi-line Text Input Control -->
+        <button type="submit" value="submit">
+            Submit
+        </button>
+    </form>
+    
+    <footer>
+        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
