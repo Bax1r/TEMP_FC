@@ -5,6 +5,8 @@ import sqlitecloud
 from Simple import Simplify
 
 simple = Simplify()
+
+"""
 test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 test_cursor = test_conn.cursor()
 
@@ -13,6 +15,7 @@ test_cursor.execute(simple.create_table('testing', 'Firstname TEXT', 'Lastname T
 
 test_conn.commit()
 test_conn.close()
+"""
 
 app = Flask(__name__)
 
