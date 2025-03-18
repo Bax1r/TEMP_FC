@@ -58,7 +58,7 @@ def power_map():
 
 @app.route('/login')
 def login():
-	pass	
+	return render_template('test_login.html')		
 
 if __name__ == "__main__":
 	app.run(debug=True)
