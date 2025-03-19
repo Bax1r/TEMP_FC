@@ -120,97 +120,23 @@
     </header>
 
     <!-- Create Form -->
-    <form action="/survey" method="POST">
+    <form action="/login" method="POST">
         <div class="form-control">
-            <label for="firstname">
-                First Name:
+            <label for="login">
+                Username/Email:
             </label>
 
-            <input type="text" name="firstname"
-                    placeholder="Enter your first name"/>
-        </div>
-
-        <div class="form-control">
-            <label for="lastname">
-                Last Name:
-            </label>
-
-            <input type="text" name="lastname"
-                    placeholder="Enter your last name"/>
-        </div>
-
-        <div class="form-control">
-            <label for="email">
-                Email:
-            </label>
-
-            <input type="text" name="email"
-                    placeholder="Enter your email"/>
+            <input type="text" name="login"
+                    placeholder="Enter your Username/Email"/>
         </div>
         
         <div class="form-control">
-            <label for="age">
-                Age:
+            <label for="password">
+                Password:
             </label>
 
-            <input type="text" name="age"
-                    placeholder="Enter your age"/>
-        </div>
-
-        <div class="form-control">
-            <label for="role">
-                Which option best describes you?
-            </label>
-
-            <!-- Dropdown options -->
-            <select name="role">
-                <option value="student">Student</option>
-                <option value="intern">Intern</option>
-                <option value="professional">Professional</option>
-                <option value="other">Other</option>
-            </select>
-        </div>
-
-        <div class="form-control">
-            <label>
-                Have you participated in a community event in the past?
-            </label>
-
-            <!-- Input Type Radio Button -->
-            <select name="recommend">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-                <option value="Maybe">Maybe</option>
-            </select>
-        </div>
-
-        <div class="form-control">
-            <label>
-                What is your ethnicity/race?
-            </label>
-
-            <!-- Input Type Radio Button -->
-            <select name="race">
-                <option value="White">White</option>
-                <option value="Black or African American">Black or African American</option>
-                <option value="Asian">Asian</option>
-                <option value="Native Hawaiian or Pacific Islander">Native Hawaiian or Pacific Islander</option>
-                <option value="Native American">Native American</option>
-                <option value="Hispanic or Latine">Hispanic or Latine</option>
-                <option value="Mixed">Mixed</option>
-                <option value="Prefer Not to Answer">Prefer Not to Answer</option>
-            </select>
-        </div>
-
-        <div class="form-control">
-            <label for="comment">
-                Any comments or suggestions?
-            </label>
-
-            <!-- multi-line text input control -->
-            <textarea name="comment" 
-                    placeholder="Enter your comment here">
-            </textarea>
+            <input type="text" name="password"
+                    placeholder="Enter your password"/>
         </div>
 
         <!-- Multi-line Text Input Control -->

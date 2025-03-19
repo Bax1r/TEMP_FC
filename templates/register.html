@@ -115,19 +115,28 @@
             <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
         </a>
         <a href="{{ url_for('survey') }}">Survey</a>
-        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('login') }}">Login/Register</a>
         <span>Testing</span>
     </header>
 
     <!-- Create Form -->
     <form action="/login" method="POST">
         <div class="form-control">
-            <label for="login">
-                Username/Email:
+            <label for="login_User">
+                Username:
             </label>
 
             <input type="text" name="login"
-                    placeholder="Enter your Username/Email"/>
+                    placeholder="Enter your Username"/>
+        </div>
+
+        <div class="form-control">
+            <label for="login_Email">
+                Email:
+            </label>
+
+            <input type="text" name="login"
+                    placeholder="Enter your Email"/>
         </div>
         
         <div class="form-control">
@@ -137,6 +146,15 @@
 
             <input type="text" name="password"
                     placeholder="Enter your password"/>
+        </div>
+
+        <div class="form-control">
+            <label for="con_password">
+                Confirm password:
+            </label>
+
+            <input type="text" name="con_password"
+                    placeholder="Re-enter your password"/>
         </div>
 
         <!-- Multi-line Text Input Control -->
