@@ -19,13 +19,16 @@ test_conn.close()
 
 app = Flask(__name__)
 
+#Redirects to the Home page
 @app.route("/")
 def start():
 	return redirect(url_for('home'))
 
+#Displays home page
 @app.route("/home")
 def home():
 	return render_template('home.html')
+
 
 @app.route("/survey", methods = ['POST', 'GET'],)
 def survey():
