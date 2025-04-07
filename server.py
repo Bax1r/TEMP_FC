@@ -19,6 +19,7 @@ test_conn.close()
 
 app = Flask(__name__)
 
+#The app initializes with the end '/' so we want to redirect to '/home' for reliability
 #Redirects to the Home page
 @app.route("/")
 def start():
@@ -29,15 +30,19 @@ def start():
 def home():
 	return render_template('home.html')
 
-
+#Survey page
 @app.route("/survey", methods = ['POST', 'GET'],)
 def survey():
+	#Loads the survey page
 	if request.method == 'GET':
 		return render_template('test_survey.html')
 	elif request.method == 'POST':
+		#Establishes a connection object with the database
 		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_cursor = test_conn.cursor()
-
+		#Retrieves the information from the survey using request.form[x]
+		#where x is the 'name' of the variable in the html file
+		#Storing retrieved data in variables with corresponding names
 		f_name = request.form['firstname']
 		l_name = request.form['lastname']
 		email = request.form['email']
@@ -48,11 +53,11 @@ def survey():
 		comments = request.form['comment']
 		
 		test_cursor.execute(simple.insert('testing', f_name, l_name, email, age, role, recommend, race, comments))
-
+		#'Posts' the executed command
 		test_conn.commit()
-		
+		#Closes the connection object, to ensure "safety" I think
 		test_conn.close()
-		
+		#Self explanitory
 		return redirect(url_for('home'))
 
 @app.route('/Power_Map')
@@ -70,6 +75,7 @@ def login():
 		user = request.form['email']
 		password = request.form['password']
 		
+		#These search functions return a list of the valid query results ex:email/username and password
 		data_email = test_cursor.execute(simple.searchall_or_con('login', 'EMAIL = ', user, 'EMAIL', 'PASSWORD'))
 		data_user = test_cursor.execute(simple.searchall_or_con('login', 'USERNAME = ', user, 'USERNAME', 'PASSWORD'))
 
