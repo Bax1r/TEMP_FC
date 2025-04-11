@@ -134,61 +134,62 @@
         <span>Power Map</span>
     </header>
 
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+    
+    <canvas id="surveyData" style="width:100%;max-width:700px"></canvas>
+    
+    <!--<table>
+        {% for item in items %}
+            <tr>
+                <td>demo</td>
+                <td>AGE</td>
+                <td>ASC</td>
+                <td>RACE</td>
+                <td>LAST_NAME</td>
+            </td>
+        {% endfor %}!-->
+    
+        <div id="ages_container" age_data="{{ age_data|tojson}}"></div>
+        <div id="weight_container" age_weight_data="{{ age_data_quantity|tojson}}"></div>
+    
+    <script>
+            const agesContainer = document.getElementById('ages_container');
+            const weightedContainer = document.getElementById('weight_container');
+    
+            const xValues = JSON.parse(agesContainer.getAttribute('age_data'));
+            const yValues = JSON.parse(weightedContainer.getAttribute('age_weight_data'));          
+            
+            const barColors = ["red", "green","blue","orange","brown"];
+        
+            new Chart("surveyData", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
     <footer>
         <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
     </footer>
 </body>
 
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-</script>
 
-<canvas id="surveyData" style="width:100%;max-width:700px"></canvas>
-
-
-<!--<table>
-    {% for item in items %}
-        <tr>
-            <td>demo</td>
-            <td>AGE</td>
-            <td>ASC</td>
-            <td>RACE</td>
-            <td>LAST_NAME</td>
-        </td>
-    {% endfor %}!-->
-
-    <div id="ages_container" age_data="{{ age_data|tojson}}"></div>
-    <div id="weight_container" age_weight_data="{{ age_data_quantity|tojson}}"></div>
-
-<script>
-        const agesContainer = document.getElementById('ages_container');
-        const weightedContainer = document.getElementById('weight_container');
-
-        const xValues = JSON.parse(agesContainer.getAttribute('age_data'));
-        const yValues = JSON.parse(weightedContainer.getAttribute('age_weight_data'));          
-        
-        const barColors = ["red", "green","blue","orange","brown"];
-    
-        new Chart("surveyData", {
-        type: "bar",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script>
     
 
 </html>
