@@ -55,6 +55,7 @@ def survey_demo():
 	if request.method == 'GET':
 		return render_template('demographics.html')
 	elif request.method == 'POST':
+		"""
 		#Establishes a connection object with the database
 		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_cursor = test_conn.cursor()
@@ -75,6 +76,7 @@ def survey_demo():
 		#Closes the connection object, to ensure "safety" I think
 		test_conn.close()
 		#Self explanitory
+		"""
 		return redirect(url_for('home'))
 
 @app.route("/survey_general", methods = ['POST', 'GET'])
