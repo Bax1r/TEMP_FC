@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" 
+          content="IE=edge">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+    <title>
+        Demographics
+    </title>
+
+    <style>
+        /* Styling the Body element 
+        i.e. Color, Font, Alignment */
+        body {
+            background-color: #fed000;
+            font-family: Verdana;
+            text-align: center;
+        }
+
+        /* Styling the Form (Color, Padding, Shadow) */
+        form {
+            background-color: #fff;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styling form-control Class */
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        /* Styling form-control Label */
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Styling form-control input, 
+        select, textarea */
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+
+        /* Styling form-control Radio 
+        button and Checkbox */
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
+        }
+
+        /* Styling Button */
+        button {
+            background-color: #05c46b;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 21px;
+            display: block;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+        </a>
+        <a href="{{ url_for('survey_demo') }}">Demographics</a>
+        <a href="{{ url_for('survey_general')}}">General Info</a>
+        <a href="{{ url_for('self_assess')}}">Self Assessment</a>
+        <a href="{{ url_for('power_map')}}">Power Map</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <span>Testing</span>
+    </header>
+    <h1>Frontline Catalysts Demographics Survey</h1>
+
+    <!-- Create Form -->
+    <form name="demo" action="/survey_demo" onsubmit="validateForm()" method="POST" required>
+
+        <div class="form-control">
+            <label> Please select your preferred Race and Ethnicity: (Choose all that apply)
+                <!-- <small>(crazy)</small> -->
+            </label>
+            <!-- Input Type Radio Button -->
+            <label for="inp-1">
+                <input type="checkbox" id="inp-1" 
+                       name="inp">American Indian, Alaska Native, Tribal or Indigenous (excluding indigenous to Latin America)
+                  </input>
+            </label>
+            <label for="inp-2">
+                <input type="checkbox" id="inp-2" 
+                       name="inp">Asian
+                  </input>
+            </label>
+            <label for="inp-3">
+                <input type="checkbox" id="inp-3" 
+                       name="inp">Black or African-American
+                  </input>
+            </label>
+            <label for="inp-4">
+                <input type="checkbox" id="inp-4" 
+                       name="inp">Hispanic or Latine, or Spanish Origin
+                  </input>
+            </label>
+            <label for="inp-5">
+                <input type="checkbox" id="inp-5" 
+                       name="inp">Indigenous
+                  </input>
+            </label>
+            <label for="inp-6">
+                <input type="checkbox" id="inp-6" 
+                       name="inp">Indigenous to Latin America (Include Mexico, Central America, and South America)
+                  </input>
+            </label>
+            <label for="inp-7">
+                <input type="checkbox" id="inp-7" 
+                       name="inp">Middle Eastern or North African
+                  </input>
+            </label>
+            <label for="inp-8">
+                <input type="checkbox" id="inp-8" 
+                    name="inp">Native Hawaiian and Pacific Islander
+                </input>
+            </label>
+            <label for="inp-9">
+                <input type="checkbox" id="inp-9" 
+                    name="inp">White
+                </input>
+            </label>
+            <label for="inp-10">
+                <input type="checkbox" id="inp-10" 
+                    name="inp">I prefer not to answer
+                </input>
+            </label>
+            <label for="other" id="label-other">
+                Other
+            </label>
+            <!-- Input Type Text -->
+            <input type="text" name="race" 
+                   placeholder="Enter your ethincity if selected other." />
+        </div>
+
+        <!-- Details -->
+        <div class="form-control">
+            <label for="email" id="label-email">
+                What is your email address?
+            </label>
+
+            <!-- Input Type Text -->
+            <input type="text" name="email" 
+                   placeholder="Enter your email address here." />
+        </div>
+
+        <div class="form-control">
+            <label for="zipcode" id="label-zipcode">
+                Please enter your 5 digit zip code:
+            </label>
+
+            <!-- Input Type Text -->
+            <input type="number" id="zipcode" 
+                   placeholder="Enter your zip code here." />
+        </div>
+
+        <div class="form-control">
+            <label>What is your affiliation with Frontline Catalysts?
+            </label>
+            <label for="affiliation-1">
+                <input type="checkbox" id="affiliation-1" 
+                       name="inp">Student
+                  </input>
+            </label>
+            <label for="affiliation-2">
+                <input type="checkbox" id="affiliation-2" 
+                       name="inp">Parent-Guardian
+                  </input>
+            </label>
+            <label for="affiliation-3">
+                <input type="checkbox" id="affiliation-3" 
+                       name="inp">Teacher
+                  </input>
+            </label>
+            <label for="affiliation-4">
+                <input type="checkbox" id="affiliation-4" 
+                       name="inp">Community Member
+                  </input>
+            </label>
+            <label for="affiliation-5">
+                <input type="checkbox" id="affiliation-5" 
+                       name="inp">Other
+                  </input>    
+            </label>
+            <label for="student_option" id="label-student_option">
+                    If answered yes to student, what school do you attend? 
+            </label>
+                <input type="text" id="student_option" 
+                       placeholder="Enter your school name here. " />
+                    </div>
+                </label>
+                
+                <div style="text-align: left; margin-left: 0;">
+                    <label>
+                        <input type="checkbox" name="grade" value="6th"> 6th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="7th"> 7th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="8th"> 8th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="9th"> 9th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="10th"> 10th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="11th"> 11th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="12th"> 12th grade
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="college_student"> College Student
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="grade" value="college_graduate"> College Graduate
+                    </label>
+                </div> <br>
+                
+        
+            <div class="form-control">
+                <label> If answered yes to community member, are you affiliated with an organization? 
+                </label>
+                <label for="community_member_option_1">
+                    <input type="checkbox" id="community_member_option_1" 
+                           name="community_member_yes"> Yes
+                      </input>
+                </label>
+                <label for="community_member_option_1">
+                    <input type="checkbox" id="community_member_option_1" 
+                           name="community_member_no"> No
+                      </input>
+                </label>
+            <label for="student_option" id="label-student_option">
+                    If yes, what organization are you a part of?
+            </label>
+    
+            <!-- Input Type Text -->
+            <input type="text" id="student_option" 
+                    placeholder="Enter your organization name here. " />
+            </div>
+
+        <div class="form-control">
+            <label for="hear_about_us" id="hear_about_us">
+                How did you hear about us? 
+            </label>
+
+            <!-- Input Type Text -->
+            <input type="text" id="hear_about_us" 
+                   placeholder="Enter your answer here." />
+        </div>
+
+        <div class="form-control">
+            <label> Would you like to sign up for our free newsletter?
+            </label>
+            <label for="sign_up_yes">
+                <input type="checkbox" id="sign_up_yes" 
+                       name="sign_up_yes"> Yes
+                  </input>
+            </label>
+            <label for="sign_up_no">
+                <input type="checkbox" id="sign_up_no" 
+                       name="sign_up_yes"> No
+                  </input>
+            </label>
+        </div>
+
+        <div class="form-control">
+            <label for="comment">
+                Thank you for completing our form! Did we miss anything? Please leave any additional information, comments, questions, or concerns below.
+            </label>
+
+            <!-- multi-line text input control -->
+            <textarea name="comment" id="comment" 
+                    placeholder="Enter your comments here.">
+            </textarea>
+        </div>
+
+        <!-- Multi-line Text Input Control -->
+        <button type="submit" value="submit">
+            Submit
+        </button>
+    </form>
+</body>
+
+<script>
+    function validateForm() {
+        var x = document.forms["demo"]["firstname"].value;
+        if (x == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+    }
+</script>
+
+</html>

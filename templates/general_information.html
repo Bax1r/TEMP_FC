@@ -7,7 +7,7 @@
         content="IE=edge">
     <meta name="viewport" 
           content="width=device-width, initial-scale=1.0">
-    <title>Build a Survey Form using HTML and CSS</title>
+    <title>Frontline Catalysts General Information and Participation survey</title>
 
     <style>
         /* Styling the Body element 
@@ -22,7 +22,7 @@
         
         header{
             background-color: #000000;
-            padding: 22px;
+            padding: 50px;
             width: auto;
             color: #ffffff;
             box-sizing: border-box;
@@ -114,13 +114,16 @@
         <a href="{{ url_for('home') }}">
             <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
         </a>
-        <a href="{{ url_for('survey') }}">Survey</a>
+        <a href="{{ url_for('survey_demo') }}">Demographics</a>
+        <a href="{{ url_for('survey_general')}}">General Info</a>
+        <a href="{{ url_for('self_assess')}}">Self Assessment</a>
+        <a href="{{ url_for('power_map')}}">Power Map</a>
         <a href="{{ url_for('login') }}">Login</a>
-        <span>Testing</span>
+        <span>Frontline Catalysts General Information and Participation survey</span>
     </header>
 
     <!-- Create Form -->
-    <form action="/survey" method="POST">
+    <form name="general" action="/survey_general" onsubmit="validateForm()" method="POST" required>
         <div class="form-control">
             <label for="firstname">
                 First Name:
@@ -139,22 +142,14 @@
                     placeholder="Enter your last name"/>
         </div>
 
-        <div class="form-control">
-            <label for="email">
-                Email:
-            </label>
-
-            <input type="text" name="email"
-                    placeholder="Enter your email"/>
-        </div>
         
         <div class="form-control">
-            <label for="age">
-                Age:
+            <label for="DateOfBirth">
+                Date of Birth:
             </label>
-
-            <input type="text" name="age"
-                    placeholder="Enter your age"/>
+9
+            <input type="date" name="DOB"
+                    placeholder="Enter your Date of Birth"/>
         </div>
 
         <div class="form-control">
@@ -165,9 +160,12 @@
             <!-- Dropdown options -->
             <select name="role">
                 <option value="student">Student</option>
-                <option value="intern">Intern</option>
-                <option value="professional">Professional</option>
-                <option value="other">Other</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Parent">Parent</option>
+                <option value="Policy maker">policy maker</option>
+                <option value="FC Staff">FC Staff</option>
+                <option value="Community member">community member</option>
+                <option value="other">other</option>
             </select>
         </div>
 
@@ -186,38 +184,101 @@
 
         <div class="form-control">
             <label>
-                What is your ethnicity/race?
+                What's your preferred gender and identity
             </label>
 
             <!-- Input Type Radio Button -->
-            <select name="race">
-                <option value="Prefer Not to Answer">Prefer Not to Answer</option>
-                <option value="Mixed">Mixed</option>
-                <option value="Black or African American">Black or African American</option>
-                <option value="White">White</option>
-                <option value="Asian">Asian</option>
-                <option value="Native Hawaiian or Pacific Islander">Native Hawaiian or Pacific Islander</option>
-                <option value="Native American">Native American</option>
-                <option value="Hispanic or Latine">Hispanic or Latine</option>
-                
+            <select name="gender">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Transgender Female">Transgender Female</option>
+                <option value="Transgender Male">Transgender Male</option>
+                <option value="Non-binary or gender non-conforming">Non-binary or gender non-conforming</option>
+                <option value="Prefer not to answer">Prefer not to answer</option>
             </select>
         </div>
 
         <div class="form-control">
-            <label for="comment">
-                Any comments or suggestions?
+            <label>
+                What pronouns do you use?
             </label>
 
-            <!-- multi-line text input control -->
-            <textarea name="comment" 
-                    placeholder="Enter your comment here">
-            </textarea>
+            <!-- Input Type Radio Button -->
+            <select name="Pronouns">
+                <option value="She/her">she/her</option>
+                <option value="He/him">he/him</option>
+                <option value="They/Them">they/them</option>
+                <option value="Other">other</option>
+            </select>
         </div>
 
-        <!-- Multi-line Text Input Control -->
-        <button type="submit" value="submit">
-            Submit
-        </button>
+        <div class="form-control">
+            <label>
+                What is your phone number?
+
+                <input type="tel" name="Phone_Number"
+                    placeholder="Phone Number"/>
+            </label>
+
+            <!-- Input Type number -->
+            
+        </div>
+
+        <div class="form-control">
+
+            <label>
+                I am participating in the following Frontline Catalysts program 
+            </label>
+            
+            <!-- Input Type checkboxes -->
+            <div>
+                <label for="UFSA-CJL">
+                    <input type="checkbox" name="UFSA-CJL" value="Yes"> UFSA - Climate Justice Leadership (Maha’s Class)
+                      </input>
+                  </label>
+                <label for="UFSA-LC">
+                    <input type="checkbox" name="UFSA-LC"> UFSA - Lunch Club
+                      </input>
+                  </label>
+                <label for="LA-LC">
+                    <input type="checkbox" name="LA-LC"> LA - Lunch Club
+                      </input>
+                  </label>
+                <label for="Rudsdale-FV">
+                    <input type="checkbox" name="Rudsdale-FV"> Rudsdale - Frontline Voices
+                      </input>
+                  </label>
+                <label for="LA-GSI">
+                    <input type="checkbox" name="LA-GSI"> LA - Garden Stewartship Internship
+                      </input>
+                  </label>
+                <label for="LA-AC">
+                    <input type="checkbox" name="LA-AC"> LA - Afterschool Club
+                      </input>
+                  </label>
+                <label for="CALI-SP(SP)">
+                    <input type="checkbox" name="CALI-SP(SP)"> CALI - Saturday Program (Student Participant)
+                      </input>
+                  </label>
+                <label for="CALI-SP(SF)">
+                    <input type="checkbox" name="CALI-SP(SF)"> CALI - Saturday Program (Student Facilitator)
+                      </input>
+                  </label>
+                <label for="CALI-DSC">
+                    <input type="checkbox" name="CALI-DSC"> CALI - Digital Storytelling Camp
+                      </input>
+                  </label>
+                <label for="CALI-PCGC">
+                    <input type="checkbox" name="CALI-PCGC"> CALI - Peralta Creek Garden Club
+                      </input>
+                  </label>
+            </div> 
+
+            <!-- Multi-line Text Input Control -->
+            <button type="submit" value="submit">
+                Submit
+            </button>
+        </div>
     </form>
     
     <footer>
@@ -237,3 +298,4 @@
 </script>
 
 </html>
+

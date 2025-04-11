@@ -53,13 +53,10 @@ class Simplify():
 
     # Returns all values in given table if no condition is given, condition is optional
     # Condition arugment runs on comparison operators (=, >=, <=, !=, LIKE, NOT, etc.)
-    def searchall_or_con(self, table, condition=None, condition_var=None, *vars):
-        if condition == None and vars == None:
+    def search_all(self, table, condition=None):
+        if condition == None:
             return ('''SELECT * FROM ''' + table)
-        elif vars == None:
-            return ('''SELECT * FROM ''' + table + ''' WHERE ''' + condition + condition_var)
-        else:
-            return (self.search_vars(table, vars) + '''WHERE''' + condition + condition_var)
+        return ('''SELECT * FROM ''' + table + ''' WHERE ''' + condition)
 
     def search_vars(self, table, *vars):
         initial = '''SELECT '''
@@ -110,3 +107,7 @@ class Simplify():
         if condition == None:
             return ('''UPDATE ''' + table + ''' SET ''' + vari)
         return ('''UPDATE ''' + table + ''' SET ''' + vari + ''' WHERE ''' + condition)
+    
+    def multiples(self, table, col):
+        return (f"SELECT {col}, COUNT(*) FROM {table} GROUP BY {col}")
+        #return ('''SELECT ''' + col + ''',COUNT(*) FROM TABLE ''' + table + ''' GROUP BY ''' + col)
