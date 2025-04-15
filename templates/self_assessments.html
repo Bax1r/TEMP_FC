@@ -46,6 +46,19 @@
             transform: translateX(-50%);
         }
 
+        a:link, a:visited {
+            background-color: #000000;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+        background-color: #000000;
+        }
+
         /* Styling the Form (Color, Padding, Shadow) */
         form {
             background-color: #fff;
@@ -124,7 +137,6 @@
         <a href="{{ url_for('self_assess')}}">Self Assessment</a>
         <a href="{{ url_for('power_map')}}">Power Map</a>
         <a href="{{ url_for('login') }}">Login</a>
-        <span>Testing</span>
     </header>
     <h1>Frontline Catalysts Self Assessment - Measurements of Program Objectives Survey</h1>
 

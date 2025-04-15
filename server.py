@@ -55,7 +55,6 @@ def survey_demo():
 	if request.method == 'GET':
 		return render_template('demographics.html')
 	elif request.method == 'POST':
-		"""
 		#Establishes a connection object with the database
 		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_cursor = test_conn.cursor()
@@ -76,7 +75,6 @@ def survey_demo():
 		#Closes the connection object, to ensure "safety" I think
 		test_conn.close()
 		#Self explanitory
-		"""
 		return redirect(url_for('home'))
 
 @app.route("/survey_general", methods = ['POST', 'GET'])
@@ -99,16 +97,16 @@ def survey_general():
 		gender = request.form['gender']
 		Pronouns = request.form['Pronouns']
 		PhoneNum = request.form['Phone_Number']
-		ufsa_CJL = request.form['UFSA-CJL']
-		ufsa_LC = request.form['UFSA-LC']
-		la_LC = request.form['LA-LC']
-		Rudsdale_FV = request.form['Rudsdale-FV']
-		la_GSI = request.form['LA-GSI']
-		la_GS = request.form['LA-AC']
-		cali_SPSP = request.form['CALI-SP(SP)']
-		cali_SPSF = request.form['CALI-SP(SF)']
-		cali_DSC = request.form['CALI-DSC']
-		cali_PCGC = request.form['CALI-PCGC']
+		ufsa_CJL = request.form.get('UFSA-CJL', 'No')
+		ufsa_LC = request.form.get('UFSA-LC', 'No')
+		la_LC = request.form.get('LA-LC', 'No')
+		Rudsdale_FV = request.form.get('Rudsdale-FV', 'No')
+		la_GSI = request.form.get('LA-GSI', 'No')
+		la_GS = request.form.get('LA-AC', 'No')
+		cali_SPSP = request.form.get('CALI-SP(SP)', 'No')
+		cali_SPSF = request.form.get('CALI-SP(SF)', 'No')
+		cali_DSC = request.form.get('CALI-DSC', 'No')
+		cali_PCGC = request.form.get('CALI-PCGC', 'No')
 		
 		test_cursor.execute(simple.insert('General_info', f_name, l_name, dob, role, recommend, gender, Pronouns, PhoneNum, ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC))
 		#'Posts' the executed command
