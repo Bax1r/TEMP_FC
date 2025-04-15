@@ -19,11 +19,6 @@
             font-family: Verdana;
             text-align: center;
         }
-
-        main {
-            position: relative;
-            min-height: 100vh;
-        }
         
         header{
             background-color: #000000;
@@ -60,6 +55,11 @@
         a:hover, a:active {
         background-color: #000000;
         }
+
+        .page-container {
+            position: relative;
+            min-height: 100vh;
+        }
         
         .content-wrap {
             padding-bottom: 5rem;
@@ -92,12 +92,11 @@
         <a href="{{ url_for('login') }}">Login</a>
     </header>
     
-    <main>
+    <div class="page-container">
         <div class="content-wrap"></div>
         <footer>
             <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
         </footer>
-    
-    </main>
+    </div>
 </body>
 </html>
