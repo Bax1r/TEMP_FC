@@ -61,15 +61,21 @@ def survey_demo():
 		#Retrieves the information from the survey using request.form[x]
 		#where x is the 'name' of the variable in the html file
 		#Storing retrieved data in variables with corresponding names
-		f_name = request.form['firstname']
+		race = request.form.getlist('race')
 		email = request.form['email']
 		zipcode = request.form['zipcode']
-		role = request.form['role']
-		recommend = request.form['recommend']
-		race = request.form['race']
-		comments = request.form['comment']
+		affilation = request.form['affilated']
+		school = request.form['school']
+		grade = request.form['grade']
+		organization = request.form['community_member']
+		org_name = request.form['organization_name']
+		heard = request.form['heard_us']
+		newsletter = request.form['sign_up']
+		comment = request.form['comment']
+
+		test_cursor.execute(simple.create_table('demographics', 'RACE TEXT', 'EMAIL TEXT', 'ZIPCODE INT', 'AFFILIATION TEXT', 'SCHOOL TEXT', 'GRADE TEXT', 'ORG TEXT', 'ORG_NAME TEXT', 'HEARD_ABOUT_US TEXT', 'NEWSLETTER TEXT', 'COMMENT TEXT'))
 		
-		test_cursor.execute(simple.insert('testing', f_name, email, zipcode, role, recommend, race, comments))
+		test_cursor.execute(simple.insert('testing', race, email, zipcode, affilation, school, grade, organization, org_name, heard, newsletter, comment))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
