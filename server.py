@@ -72,8 +72,6 @@ def survey_demo():
 		heard = request.form['heard_us']
 		newsletter = request.form['sign_up']
 		comment = request.form['comment']
-
-		test_cursor.execute(simple.create_table('demographics', 'RACE TEXT', 'EMAIL TEXT', 'ZIPCODE INT', 'AFFILIATION TEXT', 'SCHOOL TEXT', 'GRADE TEXT', 'ORG TEXT', 'ORG_NAME TEXT', 'HEARD_ABOUT_US TEXT', 'NEWSLETTER TEXT', 'COMMENT TEXT'))
 		
 		test_cursor.execute(simple.insert('testing', race, email, zipcode, affilation, school, grade, organization, org_name, heard, newsletter, comment))
 		#'Posts' the executed command
