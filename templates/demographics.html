@@ -140,7 +140,7 @@
     <h1>Frontline Catalysts Demographics Survey</h1>
 
     <!-- Create Form -->
-    <form name="demo" action="/survey_demo" onsubmit="validateForm()" method="POST" required>
+    <form name="demo" action="/survey_demo" method="POST">
 
         <div class="form-control">
             <label> Please select your preferred Race and Ethnicity: (Choose all that apply)
@@ -362,15 +362,5 @@
         <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
     </footer>
 </body>
-
-<script>
-    function validateForm() {
-        var x = document.forms["demo"]["email"].value;
-        if (x == "") {
-            alert("Name must be filled out");
-            return false;
-        }
-    }
-</script>
 
 </html>
