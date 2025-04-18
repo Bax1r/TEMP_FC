@@ -24,7 +24,7 @@ def home():
 def survey():
 	#Loads the survey page
 	if request.method == 'GET':
-		return render_template('test_survey.html')
+		return render_template('community_insight.html')
 	elif request.method == 'POST':
 		#Establishes a connection object with the database
 		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
@@ -32,16 +32,27 @@ def survey():
 		#Retrieves the information from the survey using request.form[x]
 		#where x is the 'name' of the variable in the html file
 		#Storing retrieved data in variables with corresponding names
-		f_name = request.form['firstname']
-		l_name = request.form['lastname']
-		email = request.form['email']
-		age = request.form['age']
-		role = request.form['role']
-		recommend = request.form['recommend']
-		race = request.form['race']
-		comments = request.form['comment']
+		# 'ej' == 'environmental justice'
+		community_ej = request.form['community_environmental_justice']
+		seen_ej = request.form['seen_environmental_justice']
+		# 'qi' == 'quality issues'
+		air_qi = request.form['air_quality_issues']
+		quality_of_air = request.form['quality_of_air']
+		water_qi = request.form['water_quality_issues']
+		improve_water_quality = request.form['improving_drinking_water']
+		green_spaces = request.form['visible_green_spaces']
+		invest_green = request.form['green_spaces_investments']
+		use_green_spaces = request.form['utilizing_green_spaces']
+		more_community_spaces = request.form['want_to_see_more_community_spaces']
+		increase_school_funding = request.form['increased_funding_local_schools']
+		affordable_utilities = request.form['affordable_utilities_important']
+		better_infrastructure = request.form['better_infrastructures_oakland']
+		better_transport = request.form['better_public_transportation']
+		participation_interest = request.form['interested_in_participating']
 		
-		test_cursor.execute(simple.insert('testing', f_name, l_name, email, age, role, recommend, race, comments))
+		test_cursor.execute(simple.insert('testing', community_ej, seen_ej, air_qi, quality_of_air, water_qi, improve_water_quality,
+									green_spaces, invest_green, use_green_spaces, more_community_spaces, increase_school_funding, affordable_utilities,
+									better_infrastructure, better_transport, participation_interest))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think

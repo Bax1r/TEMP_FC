@@ -133,7 +133,7 @@
         </a>
         <a href="{{ url_for('survey_demo') }}">Demographics</a>
         <a href="{{ url_for('survey_general')}}">General Info</a>
-        <a href="{{ url_for('self_assess')}}">Self Assessment</a>
+        <a href="{{ url_for('survey')}}">Community Insight</a>
         <a href="{{ url_for('power_map')}}">Power Map</a>
         <a href="{{ url_for('login') }}">Login</a>
     </header>
@@ -142,59 +142,59 @@
     <!-- Create Form -->
     <form name="demo" action="/survey_demo" method="POST">
 
-        <div class="form-control">
+        <div class="form-control" required>
             <label> Please select your preferred Race and Ethnicity: (Choose all that apply)
                 <!-- <small>(crazy)</small> -->
             </label>
             <!-- Input Type Radio Button -->
             <label for="inp-1">
                 <input type="checkbox" id="inp-1" 
-                       name="race">American Indian, Alaska Native, Tribal or Indigenous (excluding indigenous to Latin America)
+                       name="race" value="American Native">American Indian, Alaska Native, Tribal or Indigenous (excluding indigenous to Latin America)
                   </input>
             </label>
             <label for="inp-2">
                 <input type="checkbox" id="inp-2" 
-                       name="race">Asian
+                       name="race" value="Asian">Asian
                   </input>
             </label>
             <label for="inp-3">
                 <input type="checkbox" id="inp-3" 
-                       name="race">Black or African-American
+                       name="race" value="Black or Afro-American">Black or African-American
                   </input>
             </label>
             <label for="inp-4">
                 <input type="checkbox" id="inp-4" 
-                       name="race">Hispanic or Latine, or Spanish Origin
+                       name="race" value="Hispanic">Hispanic or Latine, or Spanish Origin
                   </input>
             </label>
             <label for="inp-5">
                 <input type="checkbox" id="inp-5" 
-                       name="race">Indigenous
+                       name="race" value="Indigenous">Indigenous
                   </input>
             </label>
             <label for="inp-6">
                 <input type="checkbox" id="inp-6" 
-                       name="race">Indigenous to Latin America (Include Mexico, Central America, and South America)
+                       name="race" value="Latine">Indigenous to Latin America (Include Mexico, Central America, and South America)
                   </input>
             </label>
             <label for="inp-7">
                 <input type="checkbox" id="inp-7" 
-                       name="race">Middle Eastern or North African
+                       name="race" value="Middle Eastern">Middle Eastern or North African
                   </input>
             </label>
             <label for="inp-8">
                 <input type="checkbox" id="inp-8" 
-                    name="race">Native Hawaiian and Pacific Islander
+                    name="race" value="Pacific Islander">Native Hawaiian and Pacific Islander
                 </input>
             </label>
             <label for="inp-9">
                 <input type="checkbox" id="inp-9" 
-                    name="race">White
+                    name="race" value="White">White
                 </input>
             </label>
             <label for="inp-10">
                 <input type="checkbox" id="inp-10" 
-                    name="race">I prefer not to answer
+                    name="race" value="Other">I prefer not to answer
                 </input>
             </label>
             <label for="other" id="label-other">
@@ -202,7 +202,7 @@
             </label>
             <!-- Input Type Text -->
             <input type="text" name="race" 
-                   placeholder="Enter your ethincity if selected other." />
+                placeholder="Enter your ethincity if selected other." />
         </div>
 
         <!-- Details -->
@@ -213,7 +213,7 @@
 
             <!-- Input Type Text -->
             <input type="text" name="email" 
-                   placeholder="Enter your email address here." />
+                   placeholder="Enter your email address here." required>
         </div>
 
         <div class="form-control">
@@ -223,35 +223,35 @@
 
             <!-- Input Type Text -->
             <input type="number" name="zipcode" 
-                   placeholder="Enter your zip code here." />
+                   placeholder="Enter your zip code here." required>
         </div>
 
-        <div class="form-control">
+        <div class="form-control" required>
             <label>What is your affiliation with Frontline Catalysts?
             </label>
             <label for="affiliation-1">
                 <input type="checkbox" id="affiliation-1" 
-                       name="affiliated">Student
+                       name="affiliated" value="Student">Student
                   </input>
             </label>
             <label for="affiliation-2">
                 <input type="checkbox" id="affiliation-2" 
-                       name="affiliated">Parent-Guardian
+                       name="affiliated" value="Parent_Guardian">Parent-Guardian
                   </input>
             </label>
             <label for="affiliation-3">
                 <input type="checkbox" id="affiliation-3" 
-                       name="affiliated">Teacher
+                       name="affiliated" value="Teacher">Teacher
                   </input>
             </label>
             <label for="affiliation-4">
                 <input type="checkbox" id="affiliation-4" 
-                       name="affiliated">Community Member
+                       name="affiliated" value="Community_Member">Community Member
                   </input>
             </label>
             <label for="affiliation-5">
                 <input type="checkbox" id="affiliation-5" 
-                       name="affiliated">Other
+                       name="affiliated" value="Other">Other
                   </input>    
             </label>
 
@@ -260,8 +260,8 @@
             </label>
                 <input type="text" id="student_option" name="school"
                        placeholder="Enter your school name here. " />
-                    </div>
-                </label>
+            </label>        
+        </div>
                 
                 <div style="text-align: left; margin-left: 0;">
                     <label>
@@ -294,17 +294,17 @@
                 </div> <br>
                 
         
-            <div class="form-control">
+        <div class="form-control">
                 <label> If answered yes to community member, are you affiliated with an organization? 
                 </label>
                 <label for="community_member_option_1">
                     <input type="radio" id="community_member_option_1" 
-                           name="community_member"> Yes
+                           name="community_member" value="Yes"> Yes
                       </input>
                 </label>
                 <label for="community_member_option_1">
                     <input type="radio" id="community_member_option_1" 
-                           name="community_member"> No
+                           name="community_member" value="No"> No
                       </input>
                 </label>
             <label for="student_option" id="label-student_option">
@@ -314,7 +314,7 @@
             <!-- Input Type Text -->
             <input type="text" id="student_option" name="organization_name"
                     placeholder="Enter your organization name here. " />
-            </div>
+        </div>
 
         <div class="form-control">
             <label for="hear_about_us" id="hear_about_us">
@@ -331,12 +331,12 @@
             </label>
             <label for="sign_up_yes">
                 <input type="radio" id="sign_up_yes" 
-                       name="sign_up"> Yes
+                       name="sign_up" value="Yes"> Yes
                   </input>
             </label>
             <label for="sign_up_no">
                 <input type="radio" id="sign_up_no" 
-                       name="sign_up"> No
+                       name="sign_up" value="No"> No
                   </input>
             </label>
         </div>
