@@ -26,7 +26,7 @@
             width: auto;
             color: #ffffff;
             box-sizing: border-box;
-            font-size: 30px;
+            font-size: 35px;
             display: flex;
             text-align: center;
             align-items: center;
@@ -43,19 +43,6 @@
             transform: translateX(-50%);
         }
 
-        a:link, a:visited {
-            background-color: #000000;
-            color: white;
-            padding: 14px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        a:hover, a:active {
-        background-color: #000000;
-        }
-
         footer {
             background-color: #000000;
             text-align: center;
@@ -63,6 +50,48 @@
             width: auto;
             color: #ffffff;
             box-sizing: border-box;
+        }
+
+        /* Styling the Form (Color, Padding, Shadow) */
+        form {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styling form-control Class */
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        /* Styling form-control Label */
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Styling form-control input, 
+        select, textarea */
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+
+        /* Styling form-control Radio 
+        button and Checkbox */
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
         }
 
         /* Styling Button */
@@ -78,25 +107,15 @@
             margin-bottom: 20px;
         }
 
-        .page-container {
-            position: relative;
-            min-height: 100vh;
-        }
-        
-        .content-wrap {
-            padding-bottom: 5rem;
-        }
-
         footer {
             background-color: #000000;
             text-align: center;
-            padding: 15px;
-            width: 100%;
-            height: 5rem;
-            box-sizing: border-box;
+            padding: 20px;
+            width: auto;
             color: #ffffff;
-            position: absolute;
-            bottom: 0;
+            box-sizing: border-box;
+            position: relative;
+            bottom: auto;
         }
 
         .chart-container {
@@ -118,62 +137,223 @@
         <a href="{{ url_for('self_assess')}}">Self Assessment</a>
         <a href="{{ url_for('power_map')}}">Power Map</a>
         <a href="{{ url_for('login') }}">Login</a>
+        <span>Power Map</span>
     </header>
 
-    <div class="page-container">
-        <div class="content-wrap">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <!--Connect to Charts.JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-            <div class="chart-container">
-                <canvas id="surveyData" style="width:100%;max-width:700px"></canvas>
-            </div>
-            <!--<table>
-                {% for item in items %}
-                    <tr>
-                        <td>demo</td>
-                        <td>AGE</td>
-                        <td>ASC</td>
-                        <td>RACE</td>
-                        <td>LAST_NAME</td>
-                    </td>
-                {% endfor %}!-->
-            
-                <div id="ages_container" age_data="{{ age_data|tojson}}"></div>
-                <div id="weight_container" age_weight_data="{{ age_data_quantity|tojson}}"></div>
-            
-            <script>
-                    const agesContainer = document.getElementById('ages_container');
-                    const weightedContainer = document.getElementById('weight_container');
-            
-                    const xValues = JSON.parse(agesContainer.getAttribute('age_data'));
-                    const yValues = JSON.parse(weightedContainer.getAttribute('age_weight_data'));          
-                    
-                    const barColors = ["red", "green","blue","orange","brown"];
-                
-                    new Chart("surveyData", {
-                    type: "bar",
-                    data: {
-                        labels: xValues,
-                        datasets: [{
-                            backgroundColor: barColors,
-                            data: yValues
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-            </script>
+    <!--Initialize charts-->
+
+    <!--Row 1-->
+    <div style="display: flex;">
+        <!--General Info: Recommend-->
+        <div class="chart-container">
+            <canvas id="recommend" style="width:100%;max-width:500px"></canvas>
         </div>
-        <footer>
-            <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
-        </footer>
-    </div>    
+        <!--General Info: Role-->
+        <div class="chart-container">
+            <canvas id="role" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--General Info: Gender-->
+        <div class="chart-container">
+            <canvas id="gender" style="width:100%;max-width:500px"></canvas>
+        </div>
+    </div>
+    <!--Row 2-->
+    <div style="display: flex;">
+        <!--General Info: Pronouns-->
+        <div class="chart-container">
+            <canvas id="pronouns" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--General Info: Programs-->
+        <div class="chart-container">
+            <canvas id="programs" style="width:100%;max-width:500px"></canvas>
+        </div>
+    </div>
+
+    
+
+    <!--Initialize plotting data-->
+
+        <!--General Info: Recommend-->
+        <div id="recommend_container" recommend_data='{{ recommend_data|tojson}}'></div>
+        <div id="recommend_weight_container" recommend_weight_data='{{ recommend_data_quantity|tojson}}'></div>
+
+        <!--General Info: Role-->
+        <div id="role_container" role_data='{{ role_data|tojson}}'></div>
+        <div id="role_weight_container" role_weight_data='{{ role_data_quantity|tojson}}'></div>
+
+        <!--General Info: Gender-->
+        <div id="gender_container" gender_data='{{ gender_data|tojson}}'></div>
+        <div id="gender_weight_container" gender_weight_data='{{ gender_data_quantity|tojson}}'></div>
+
+        <!--General Info: Pronouns-->
+        <div id="pronouns_container" pronouns_data='{{ pronouns_data|tojson}}'></div>
+        <div id="pronouns_weight_container" pronouns_weight_data='{{ pronouns_data_quantity|tojson}}'></div>
+
+        <!--General Info: Programs-->
+        <div id="programs_container" programs_data='{{ programs_data|tojson}}'></div>
+        <div id="programs_weight_container" programs_weight_data='{{ programs_data_quantity|tojson}}'></div>
+
+    
+    <script>
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Convert plotting data into something plottable
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+            // General Info: Recommend
+            const recommendContainer = document.getElementById('recommend_container');
+            const recommendWeightedContainer = document.getElementById('recommend_weight_container');
+    
+            const xRecommend = JSON.parse(recommendContainer.getAttribute('recommend_data'));
+            const yRecommend = JSON.parse(recommendWeightedContainer.getAttribute('recommend_weight_data'));
+            
+            // General Info: Role
+            const roleContainer = document.getElementById('role_container');
+            const roleWeightedContainer = document.getElementById('role_weight_container');
+    
+            const xRole = JSON.parse(roleContainer.getAttribute('role_data'));
+            const yRole = JSON.parse(roleWeightedContainer.getAttribute('role_weight_data'));
+
+            // General Info: Gender
+            const genderContainer = document.getElementById('gender_container');
+            const genderWeightedContainer = document.getElementById('gender_weight_container');
+    
+            const xGender = JSON.parse(genderContainer.getAttribute('gender_data'));
+            const yGender = JSON.parse(genderWeightedContainer.getAttribute('gender_weight_data'));
+
+            // General Info: Pronouns
+            const pronounsContainer = document.getElementById('pronouns_container');
+            const pronounsWeightedContainer = document.getElementById('pronouns_weight_container');
+    
+            const xPronouns = JSON.parse(pronounsContainer.getAttribute('pronouns_data'));
+            const yPronouns = JSON.parse(pronounsWeightedContainer.getAttribute('pronouns_weight_data'));
+            
+            // General Info: Programs
+            const programsContainer = document.getElementById('programs_container');
+            const programsWeightedContainer = document.getElementById('programs_weight_container');
+    
+            const xPrograms = JSON.parse(programsContainer.getAttribute('programs_data'));
+            const yPrograms = JSON.parse(programsWeightedContainer.getAttribute('programs_weight_data'));  
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Make charts
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+
+            // General Info: Recommend
+            new Chart("recommend", {
+            type: "bar",
+            data: {
+                labels: xRecommend,
+                datasets: [{
+                    label: "Past Participation: Bar",
+                    backgroundColor: barColors,
+                    data: yRecommend
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }}); 
+
+            // General Info: Recommend
+            new Chart("role", {
+            type: "bar",
+            data: {
+                labels: xRole,
+                datasets: [{
+                    label: "Role: Bar",
+                    backgroundColor: barColors,
+                    data: yRole
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }}); 
+
+            // General Info: Gender
+            new Chart("gender", {
+            type: "bar",
+            data: {
+                labels: xGender,
+                datasets: [{
+                    label: "Gender: Bar",
+                    backgroundColor: barColors,
+                    data: yGender
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }}); 
+
+            // General Info: Pronouns
+            new Chart("pronouns", {
+            type: "bar",
+            data: {
+                labels: xPronouns,
+                datasets: [{
+                    label: "Pronouns: Bar",
+                    backgroundColor: barColors,
+                    data: yPronouns
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }});
+
+            // General Info: Programs
+            new Chart("programs", {
+            type: "doughnut",
+            data: {
+                labels: xPrograms,
+                datasets: [{
+                    label: "Programs: Doughnut",
+                    backgroundColor: barColors,
+                    data: yPrograms
+
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+            });
+
+
+        
+    </script>
+
+
+
+
+
+    <footer>
+        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+    </footer>
 </body>
 </html>
