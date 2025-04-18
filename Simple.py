@@ -111,3 +111,14 @@ class Simplify():
     def multiples(self, table, col):
         return (f"SELECT {col}, COUNT(*) FROM {table} GROUP BY {col}")
         #return ('''SELECT ''' + col + ''',COUNT(*) FROM TABLE ''' + table + ''' GROUP BY ''' + col)
+
+    # lists: a list containing two lists, entries and quantities: two lists of the same size, 
+    # label: an entry for the first list in lists
+    def yesCheck(self, lists, entries, quantities, label):
+        # Takes two lists, one with labels (entries) and one with yes/no answers (quantities), 
+        # and filters out the "no" answers into a new two-list pair "lists".
+
+        if 'Yes' in entries:
+            index = entries.index('Yes')
+            lists[0].append(label)
+            lists[1].append(quantities[index])
