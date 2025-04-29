@@ -123,7 +123,7 @@ def survey_general():
 		recommend = request.form['recommend']
 		gender = request.form['gender']
 		Pronouns = request.form['Pronouns']
-		PhoneNum = request.form['Phone_Number']
+		email = request.form['Phone_Number']
 		ufsa_CJL = request.form.get('UFSA-CJL', 'No')
 		ufsa_LC = request.form.get('UFSA-LC', 'No')
 		la_LC = request.form.get('LA-LC', 'No')
@@ -139,7 +139,8 @@ def survey_general():
 		today = date.today()
 		currentDate = today.strftime("%m/%d/%y")
 		
-		test_cursor.execute(simple.insert('General_Information', f_name, l_name, dob, role, recommend, gender, Pronouns, PhoneNum, ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC, currentDate))
+		test_cursor.execute(simple.insert('General_Information', f_name, l_name, dob, role, recommend, gender, Pronouns, email, currentDate))
+		test_cursor.execute(simple.insert('participation_data', ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
