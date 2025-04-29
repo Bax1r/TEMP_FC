@@ -139,7 +139,7 @@ def survey_general():
 		today = date.today()
 		currentDate = today.strftime("%m/%d/%y")
 		
-		test_cursor.execute(simple.insert('General_info', f_name, l_name, dob, role, recommend, gender, Pronouns, PhoneNum, ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC, currentDate))
+		test_cursor.execute(simple.insert('General_Information', f_name, l_name, dob, role, recommend, gender, Pronouns, PhoneNum, ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC, currentDate))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
