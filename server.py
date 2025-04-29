@@ -110,7 +110,8 @@ def survey_general():
 		return render_template('general_information.html')
 	elif request.method == 'POST':
 		#Establishes a connection object with the database
-		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
+		test_conn = sqlitecloud.connect(simple.test_connection())
+		#test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_cursor = test_conn.cursor()
 		#Retrieves the information from the survey using request.form[x]
 		#where x is the 'name' of the variable in the html file
