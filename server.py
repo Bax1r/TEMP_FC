@@ -133,8 +133,12 @@ def survey_general():
 		cali_SPSF = request.form.get('CALI-SP(SF)', 'No')
 		cali_DSC = request.form.get('CALI-DSC', 'No')
 		cali_PCGC = request.form.get('CALI-PCGC', 'No')
+
+		# Date of submission
+		today = date.today()
+		currentDate = today.strftime("%m/%d/%y")
 		
-		test_cursor.execute(simple.insert('General_info', f_name, l_name, dob, role, recommend, gender, Pronouns, PhoneNum, ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC))
+		test_cursor.execute(simple.insert('General_info', f_name, l_name, dob, role, recommend, gender, Pronouns, PhoneNum, ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC, currentDate))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
