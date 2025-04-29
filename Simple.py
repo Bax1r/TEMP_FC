@@ -115,13 +115,49 @@ class Simplify():
         return (f"SELECT {col}, COUNT(*) FROM {table} GROUP BY {col}")
         #return ('''SELECT ''' + col + ''',COUNT(*) FROM TABLE ''' + table + ''' GROUP BY ''' + col)
 
-    # lists: a list containing two lists, entries and quantities: two lists of the same size, 
-    # label: an entry for the first list in lists
-    def yesCheck(self, lists, entries, quantities, label):
-        # Takes two lists, one with labels (entries) and one with yes/no answers (quantities), 
-        # and filters out the "no" answers into a new two-list pair "lists".
+    def multiples_yes_var(self, table, col):
+        return (f"SELECT COUNT({col}) FROM {table} WHERE TRIM({col})='Yes' GROUP BY {col}")
 
-        if 'Yes' in entries:
-            index = entries.index('Yes')
-            lists[0].append(label)
-            lists[1].append(quantities[index])
+
+    def getColumn(self, table, data, cursor):
+			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function)
+			# Returns: List of possible entries, amount of each entry found
+            cursor.execute(self.multiples(table,data))
+            column = cursor.fetchall()
+		
+            column_data=[]
+            column_data_quantity=[]		
+            for row in column:
+                if row[0] == '' or row[0] == None:
+                    column_data.append("N/A")
+                    column_data_quantity.append(row[-1])
+                else:
+                    column_data.append(row[0])
+                    column_data_quantity.append(row[-1])
+
+            return column_data, column_data_quantity
+    
+
+    def getColumnYes(self, table, data, cursor, destination):
+			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function), destination (place data is put into)
+			# Returns: List of possible entries, amount of each entry found
+            cursor.execute(self.multiples_yes_var(table, data))
+            column = cursor.fetchall()
+            if column != []:
+                value = int(column[0][0])
+
+                destination[0].append(data)
+                destination[1].append(value)
+
+                return data, value
+            return None, None
+    
+
+    def getYears(self, table, cursor1, cursor2):
+        birth_data, birth_data_quantity = self.getColumn(table, "DATEOFBIRTH", cursor1)
+        date_data, date_data_quantity = self.getColumn(table, "TIME_SUBMITTED", cursor2)
+
+        for i in range(0, (min(len(birth_data), len(date_data)))):
+
+            pass
+        return None

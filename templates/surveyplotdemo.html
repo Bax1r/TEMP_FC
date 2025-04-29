@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" 
+        content="IE=edge">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+    <title>Build a Survey Form using HTML and CSS</title>
+
+    <style>
+        /* Styling the Body element 
+        i.e. Color, Font, Alignment */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #fed000;
+            font-family: Verdana;
+            text-align: center;
+        }
+        
+        header{
+            background-color: #000000;
+            padding: 22px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+            font-size: 35px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        header img {
+            margin-right: 1px; /* Adjust the spacing as needed */
+        }
+
+        header span{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        footer {
+            background-color: #000000;
+            text-align: center;
+            padding: 20px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        /* Styling the Form (Color, Padding, Shadow) */
+        form {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Styling form-control Class */
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        /* Styling form-control Label */
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Styling form-control input, 
+        select, textarea */
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+
+        /* Styling form-control Radio 
+        button and Checkbox */
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
+        }
+
+        /* Styling Button */
+        button {
+            background-color: #05c46b;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 21px;
+            display: block;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #000000;
+            text-align: center;
+            padding: 20px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
+            position: relative;
+            bottom: auto;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center; /* Centers horizontally */
+            align-items: center; /* Centers vertically */
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+        </a>
+        <a href="{{ url_for('survey_demo') }}">Demographics</a>
+        <a href="{{ url_for('survey_general')}}">General Info</a>
+        <a href="{{ url_for('self_assess')}}">Self Assessment</a>
+        <a href="{{ url_for('power_map_general')}}">Power Map (gen)</a>
+        <a href="{{ url_for('power_map_demo')}}">Power Map (demo)</a>
+        <a href="{{ url_for('power_map_insight')}}">Power Map (insight)</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <span>Power Map</span>
+    </header>
+
+    <!--Connect to Charts.JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!--Initialize charts-->
+
+    <!--Row 1-->
+    <div style="display: flex;">
+        <!--Demographics: School-->
+        <div class="chart-container">
+            <canvas id="school" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--Demographics: Grade-->
+        <div class="chart-container">
+            <canvas id="grade" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--Demographics: Organization Member?-->
+        <div class="chart-container">
+            <canvas id="orgmember" style="width:100%;max-width:500px"></canvas>
+        </div>
+    </div>
+    <!--Row 2-->
+    <div style="display: flex;">
+        <!--Demographics: Organization-->
+        <div class="chart-container">
+            <canvas id="org" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--Demographics: Newsletter?-->
+        <div class="chart-container">
+            <canvas id="news" style="width:100%;max-width:500px"></canvas>
+        </div>
+    </div>
+
+
+    <!--Initialize plotting data-->
+        <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
+   
+     <script>
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Convert plotting data into something plottable
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        const plot_data_container = document.getElementById('plot_data_container');
+        const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
+        console.log(plot_data_translated)
+
+        x_school = plot_data_translated[0]
+        y_school = plot_data_translated[1]
+        x_grade = plot_data_translated[2]
+        y_grade = plot_data_translated[3]
+        x_orgmember = plot_data_translated[4]
+        y_orgmember = plot_data_translated[5]
+        x_org = plot_data_translated[6]
+        y_org = plot_data_translated[7]
+        x_news = plot_data_translated[8]
+        y_news = plot_data_translated[9]
+
+
+   
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Make charts
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+
+            // Demographics: School
+            new Chart("school", {
+            type: "doughnut",
+            data: {
+                labels: x_school,
+                datasets: [{
+                    label: "School: Doughnut",
+                    backgroundColor: barColors,
+                    data: y_school
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+            });
+ 
+
+            // Demographics: Grade
+            new Chart("grade", {
+            type: "bar",
+            data: {
+                labels: x_grade,
+                datasets: [{
+                    label: "Grade: Bar",
+                    backgroundColor: barColors,
+                    data: y_grade
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }});
+
+            // Demographics: Organization Member?
+            new Chart("orgmember", {
+            type: "bar",
+            data: {
+                labels: x_orgmember,
+                datasets: [{
+                    label: "Organization Member: Bar",
+                    backgroundColor: barColors,
+                    data: y_orgmember
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }});
+
+            // Demographics: Organization
+            new Chart("org", {
+            type: "doughnut",
+            data: {
+                labels: x_org,
+                datasets: [{
+                    label: "Organization: Doughnut",
+                    backgroundColor: barColors,
+                    data: y_org
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+            });
+
+
+            // Demographics: Newsletter?
+            new Chart("news", {
+            type: "bar",
+            data: {
+                labels: x_news,
+                datasets: [{
+                    label: "Newsletter: Bar",
+                    backgroundColor: barColors,
+                    data: y_news
+
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }});
+
+
+        
+    </script>
+
+
+
+
+    <footer>
+        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+    </footer>
+</body>
+</html>
