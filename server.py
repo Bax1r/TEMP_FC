@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, request
 from flask import url_for
+from datetime import date
 #import sqlite3
 import sqlitecloud
-import datetime
 from Simple import Simplify
 
 simple = Simplify()
@@ -34,26 +34,29 @@ def survey():
 		#where x is the 'name' of the variable in the html file
 		#Storing retrieved data in variables with corresponding names
 		# 'ej' == 'environmental justice'
-		community_ej = request.form['community_environmental_justice']
-		seen_ej = request.form['seen_environmental_justice']
+		community_ej = request.form.get('community_environmental_justice', 'no')
+		seen_ej = request.form.get('seen_environmental_justice', 'no')
 		# 'qi' == 'quality issues'
-		air_qi = request.form['air_quality_issues']
-		quality_of_air = request.form['quality_of_air']
-		water_qi = request.form['water_quality_issues']
-		improve_water_quality = request.form['improving_drinking_water']
-		green_spaces = request.form['visible_green_spaces']
-		invest_green = request.form['green_spaces_investments']
-		use_green_spaces = request.form['utilizing_green_spaces']
-		more_community_spaces = request.form['want_to_see_more_community_spaces']
-		increase_school_funding = request.form['increased_funding_local_schools']
-		affordable_utilities = request.form['affordable_utilities_important']
-		better_infrastructure = request.form['better_infrastructures_oakland']
-		better_transport = request.form['better_public_transportation']
-		participation_interest = request.form['interested_in_participating']
-		
-		test_cursor.execute(simple.insert('testing', community_ej, seen_ej, air_qi, quality_of_air, water_qi, improve_water_quality,
+		air_qi = request.form.get('air_quality_issues', 'no')
+		quality_of_air = request.form.get('quality_of_air', 'no')
+		water_qi = request.form.get('water_quality_issues', 'no')
+		improve_water_quality = request.form.get('improving_drinking_water', 'no')
+		green_spaces = request.form.get('visible_green_spaces', 'no')
+		invest_green = request.form.get('green_spaces_investments', 'no')
+		use_green_spaces = request.form.get('utilizing_green_spaces', 'no')
+		more_community_spaces = request.form.get('want_to_see_more_community_spaces', 'no')
+		increase_school_funding = request.form.get('increased_funding_local_schools', 'no')
+		affordable_utilities = request.form.get('affordable_utilities_important', 'no')
+		better_infrastructure = request.form.get('better_infrastructures_oakland', 'no')
+		better_transport = request.form.get('better_public_transportation', 'no')
+		participation_interest = request.form.get('interested_in_participating', 'no')
+		# Date of submission
+		today = date.today()
+		currentDate = today.strftime("%m/%d/%y")
+		#Insert data into table
+		test_cursor.execute(simple.insert('Community_Insight', community_ej, seen_ej, air_qi, quality_of_air, water_qi, improve_water_quality,
 									green_spaces, invest_green, use_green_spaces, more_community_spaces, increase_school_funding, affordable_utilities,
-									better_infrastructure, better_transport, participation_interest))
+									better_infrastructure, better_transport, participation_interest, currentDate))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
@@ -73,20 +76,26 @@ def survey_demo():
 		#Retrieves the information from the survey using request.form[x]
 		#where x is the 'name' of the variable in the html file
 		#Storing retrieved data in variables with corresponding names
-		race = request.form.getlist('race')
+		race_list = request.form.getlist('race')
+		#Convert list to str
+		race = ' '.join(race_list)
 		email = request.form['email']
 		zipcode = request.form['zipcode']
-		affilation = request.form['affilated']
+		affiliation_list = request.form.getlist('affiliated')
+		#Convert list to str
+		affiliation = ' '.join(affiliation_list)
 		school = request.form['school']
 		grade = request.form['grade']
-		organization = request.form.get('community_member','no')
+		organization = request.form.get('community_member', 'no')
 		org_name = request.form['organization_name']
 		heard = request.form['heard_us']
-		newsletter = request.form.get('sign_up','no')
+		newsletter = request.form.get('sign_up', 'no')
 		comment = request.form['comment']
-		now = datetime.datetime.now()
+		# Date of submission
+		today = date.today()
+		currentDate = today.strftime("%m/%d/%y")
 		
-		test_cursor.execute(simple.insert('testing', race, email, zipcode, affilation, school, grade, organization, org_name, heard, newsletter, comment, now))
+		test_cursor.execute(simple.insert('demographics', race, email, zipcode, affiliation, school, grade, organization, org_name, heard, newsletter, comment, currentDate))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
@@ -132,7 +141,8 @@ def survey_general():
 		test_conn.close()
 		#Self explanitory
 		return redirect(url_for('home'))
-	
+
+"""	
 @app.route("/self-assessment", methods = ['POST', 'GET'])
 def self_assess():
 	#Loads the survey page
@@ -161,105 +171,38 @@ def self_assess():
 		test_conn.close()
 		#Self explanitory
 		return redirect(url_for('home'))
-	
+"""
+
 @app.route('/power_map', methods = ['POST', 'GET'],)
 def power_map(): 
-	return redirect(url_for('home'))
-
 	if request.method == 'GET':
 		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		#test_conn = sqlite3.connect('FLC_database.db')
 		test_cursor = test_conn.cursor()
 
-		def getColumn(table, data, cursor):
-			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function)
-			# Returns: List of possible entries, amount of each entry found
-			cursor.execute(simple.multiples(table,data))
-			column = cursor.fetchall()
+		data = test_cursor.execute(simple.multiples("plottable", "AGE"))
 		
-			column_data=[]
-			column_data_quantity=[]		
-			for row in column:
-				column_data.append(row[0])
-				column_data_quantity.append(row[-1])
+		age_data=[]
+		age_data_quantity=[]		
+		for row in data:
+			age_data.append(row[0])
+			age_data_quantity.append(row[-1])
 
-			return column_data, column_data_quantity
+		#test_conn.commit()
 
-		##############################################################################################################
-		# General info: Recommend
-		##############################################################################################################
-		cursor_recommend = test_conn.cursor()
-		recommend_data, recommend_data_quantity = getColumn("General_info", "RECOMMEND", cursor_recommend)
+		data_2 = test_cursor.execute(simple.multiples("demographics", 'NEWSLETTER_SIGN_UP'))
 
-		##############################################################################################################
-		# General info: Roles
-		##############################################################################################################
-		cursor_role = test_conn.cursor()
-		role_data, role_data_quantity = getColumn("General_info", "ROLE", cursor_role)
+		news_data=[]
+		news_quantity=[]
+		for row in data_2:
+			news_data.append(row[0])
+			news_quantity.append(row[-1])
 
-		##############################################################################################################
-		# General info: Gender
-		##############################################################################################################
-		cursor_gender = test_conn.cursor()
-		gender_data, gender_data_quantity = getColumn("General_info", "GENDER", cursor_gender)
-
-		##############################################################################################################
-		# General info: Pronouns
-		##############################################################################################################
-		cursor_pronouns = test_conn.cursor()
-		pronouns_data, pronouns_data_quantity = getColumn("General_info", "PRONOUNS", cursor_pronouns)
-
-		##############################################################################################################
-		#General info: Programs
-		##############################################################################################################
-		cursor_UFSA_CJL = test_conn.cursor()
-		UFSA_CJL_labels, UFSA_CJL_data_quantity = getColumn("General_info", "UFSA_CJL", cursor_UFSA_CJL)
-		cursor_UFSA_LC = test_conn.cursor()
-		UFSA_LC_labels, UFSA_LC_data_quantity = getColumn("General_info", "UFSA_LC", cursor_UFSA_LC)
-		cursor_LA_LC = test_conn.cursor()
-		LA_LC_labels, LA_LC_data_quantity = getColumn("General_info", "LA_LC", cursor_LA_LC)
-		cursor_RUDSDALE_FV = test_conn.cursor()
-		RUDSDALE_FV_labels, RUDSDALE_FV_data_quantity = getColumn("General_info", "RUDSDALE_FV", cursor_RUDSDALE_FV)
-		cursor_LA_GSI = test_conn.cursor()
-		LA_GSI_labels, LA_GSI_data_quantity = getColumn("General_info", "LA_GSI", cursor_LA_GSI)
-		cursor_LA_AC = test_conn.cursor()
-		LA_AC_labels, LA_AC_data_quantity = getColumn("General_info", "LA_AC", cursor_LA_AC)
-		cursor_CALI_SPSP = test_conn.cursor()
-		CALI_SPSP_labels, CALI_SPSP_data_quantity = getColumn("General_info", "CALI_SPSP", cursor_CALI_SPSP)
-		cursor_SPSF = test_conn.cursor()
-		CALI_SPSF_labels, CALI_SPSF_data_quantity = getColumn("General_info", "CALI_SPSF", cursor_SPSF)
-		cursor_CALI_DSC = test_conn.cursor()
-		CALI_DSC_labels, CALI_DSC_data_quantity = getColumn("General_info", "CALI_DSC", cursor_CALI_DSC)
-		cursor_CALI_PCGC = test_conn.cursor()
-		CALI_PCGC_labels, CALI_PCGC_data_quantity = getColumn("General_info", "CALI_PCGC", cursor_CALI_PCGC)
-
-		# The data we want from Programs
-		programs = [[], []]
-		simple.yesCheck(programs, UFSA_CJL_labels, UFSA_CJL_data_quantity, "UFSA_CJL")
-		simple.yesCheck(programs, UFSA_LC_labels, UFSA_LC_data_quantity, "UFSA_LC")
-		simple.yesCheck(programs, LA_LC_labels, LA_LC_data_quantity, "LA_LC")
-		simple.yesCheck(programs, RUDSDALE_FV_labels, RUDSDALE_FV_data_quantity, "RUDSDALE_FV")
-		simple.yesCheck(programs, LA_GSI_labels, LA_GSI_data_quantity, "LA_GSI")
-		simple.yesCheck(programs, LA_AC_labels, LA_AC_data_quantity, "LA_AC")
-		simple.yesCheck(programs, CALI_SPSP_labels, CALI_SPSP_data_quantity, "CALI_SPSP")
-		simple.yesCheck(programs, CALI_SPSF_labels, CALI_SPSF_data_quantity, "CALI_SPSF")
-		simple.yesCheck(programs, CALI_DSC_labels, CALI_DSC_data_quantity, "CALI_DSC_SPSF")
-		simple.yesCheck(programs, CALI_PCGC_labels, CALI_PCGC_data_quantity, "CALI_PCGC_SPSF")
-
-		##############################################################################################################
-		
 		test_conn.commit()
+
 		test_conn.close()
 
-		return render_template(
-			'surveyplot.html',
-
-			recommend_data=recommend_data, recommend_data_quantity=recommend_data_quantity,
-			role_data=role_data, role_data_quantity=role_data_quantity,
-			gender_data=gender_data, gender_data_quantity=gender_data_quantity,
-			pronouns_data=pronouns_data, pronouns_data_quantity=pronouns_data_quantity,
-			programs_data=programs[0], programs_data_quantity=programs[1]
-			)
+		return render_template('surveyplot.html',age_data=age_data, age_data_quantity=age_data_quantity, news_data=news_data, news_quantity=news_quantity)
 
 @app.route('/login')
 def login():

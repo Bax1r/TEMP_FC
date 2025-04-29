@@ -102,7 +102,7 @@
 
         /* Styling Button */
         button {
-            background-color: #05c46b;
+            background-color: #fed000;
             border: 1px solid #777;
             border-radius: 2px;
             font-family: inherit;
@@ -147,62 +147,41 @@
                 <!-- <small>(crazy)</small> -->
             </label>
             <!-- Input Type Radio Button -->
-            <label for="inp-1">
-                <input type="checkbox" id="inp-1" 
-                       name="race" value="American Native">American Indian, Alaska Native, Tribal or Indigenous (excluding indigenous to Latin America)
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="American Native">American Indian, Alaska Native, Tribal or Indigenous (excluding indigenous to Latin America)
             </label>
-            <label for="inp-2">
-                <input type="checkbox" id="inp-2" 
-                       name="race" value="Asian">Asian
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="Asian">Asian
             </label>
-            <label for="inp-3">
-                <input type="checkbox" id="inp-3" 
-                       name="race" value="Black or Afro-American">Black or African-American
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="Black or Afro-American">Black or African-American
             </label>
-            <label for="inp-4">
-                <input type="checkbox" id="inp-4" 
-                       name="race" value="Hispanic">Hispanic or Latine, or Spanish Origin
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="Hispanic">Hispanic or Latine, or Spanish Origin
             </label>
-            <label for="inp-5">
-                <input type="checkbox" id="inp-5" 
-                       name="race" value="Indigenous">Indigenous
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="Indigenous">Indigenous
             </label>
-            <label for="inp-6">
-                <input type="checkbox" id="inp-6" 
-                       name="race" value="Latine">Indigenous to Latin America (Include Mexico, Central America, and South America)
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="Latine">Indigenous to Latin America (Include Mexico, Central America, and South America)
             </label>
-            <label for="inp-7">
-                <input type="checkbox" id="inp-7" 
-                       name="race" value="Middle Eastern">Middle Eastern or North African
-                  </input>
+            <label>
+                <input type="checkbox" name="race" value="Middle Eastern">Middle Eastern or North African
             </label>
-            <label for="inp-8">
-                <input type="checkbox" id="inp-8" 
-                    name="race" value="Pacific Islander">Native Hawaiian and Pacific Islander
-                </input>
+            <label>
+                <input type="checkbox" name="race" value="Pacific Islander">Native Hawaiian and Pacific Islander
             </label>
-            <label for="inp-9">
-                <input type="checkbox" id="inp-9" 
-                    name="race" value="White">White
-                </input>
+            <label>
+                <input type="checkbox" name="race" value="White">White
             </label>
-            <label for="inp-10">
-                <input type="checkbox" id="inp-10" 
-                    name="race" value="Other">I prefer not to answer
-                </input>
+            <label>
+                <input type="checkbox" name="race" value="Anonimous">I prefer not to answer
             </label>
-            <label for="other" id="label-other">
-                Other
+            <label>
+                <input type="checkbox" name="race">Other
             </label>
             <!-- Input Type Text -->
-            <input type="text" name="race" 
-                placeholder="Enter your ethincity if selected other." />
+            <input type="text" name="race" placeholder="Enter your ethincity if selected other." />
         </div>
 
         <!-- Details -->
@@ -227,85 +206,72 @@
         </div>
 
         <div class="form-control" required>
-            <label>What is your affiliation with Frontline Catalysts?
+            <label>What is your affiliation with Frontline Catalysts?</label>
+            <label>
+                <input type="checkbox" name="affiliated" value="Student">Student
             </label>
-            <label for="affiliation-1">
-                <input type="checkbox" id="affiliation-1" 
-                       name="affiliated" value="Student">Student
-                  </input>
+            <label>
+                <input type="checkbox" name="affiliated" value="Parent_Guardian">Parent-Guardian
             </label>
-            <label for="affiliation-2">
-                <input type="checkbox" id="affiliation-2" 
-                       name="affiliated" value="Parent_Guardian">Parent-Guardian
-                  </input>
+            <label>
+                <input type="checkbox" name="affiliated" value="Teacher">Teacher
             </label>
-            <label for="affiliation-3">
-                <input type="checkbox" id="affiliation-3" 
-                       name="affiliated" value="Teacher">Teacher
-                  </input>
+            <label>
+                <input type="checkbox" name="affiliated" value="Community_Member">Community Member
             </label>
-            <label for="affiliation-4">
-                <input type="checkbox" id="affiliation-4" 
-                       name="affiliated" value="Community_Member">Community Member
-                  </input>
-            </label>
-            <label for="affiliation-5">
-                <input type="checkbox" id="affiliation-5" 
-                       name="affiliated" value="Other">Other
-                  </input>    
-            </label>
+            <label>
+                <input type="checkbox" name="affiliated" value="Other">Other
+            </label><br>
 
-            <label for="student_option" id="label-student_option">
+            <label>
                     If answered yes to student, what school do you attend? 
             </label>
                 <input type="text" id="student_option" name="school"
                        placeholder="Enter your school name here. " />
             </label>        
         </div>
-                
-                <div style="text-align: left; margin-left: 0;">
-                    <label>
-                        <input type="radio" name="grade" value="6th"> 6th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="7th"> 7th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="8th"> 8th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="9th"> 9th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="10th"> 10th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="11th"> 11th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="12th"> 12th grade
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="college_student"> College Student
-                    </label><br>
-                    <label>
-                        <input type="radio" name="grade" value="college_graduate"> College Graduate
-                    </label>
-                </div> <br>
-                
+        
+        <div class="form-control">
+            <label>What level of education have you acheived?</label>
+            <label>
+                <input type="radio" name="grade" value="6th" required> 6th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="7th"> 7th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="8th"> 8th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="9th"> 9th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="10th"> 10th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="11th"> 11th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="12th"> 12th grade
+            </label>
+            <label>
+                <input type="radio" name="grade" value="college_student"> College Student
+            </label>
+            <label>
+                <input type="radio" name="grade" value="college_graduate"> College Graduate
+            </label>
+        </div>
         
         <div class="form-control">
                 <label> If answered yes to community member, are you affiliated with an organization? 
                 </label>
                 <label for="community_member_option_1">
                     <input type="radio" id="community_member_option_1" 
-                           name="community_member" value="Yes"> Yes
-                      </input>
+                           name="community_member" value="Yes" required> Yes
                 </label>
                 <label for="community_member_option_1">
                     <input type="radio" id="community_member_option_1" 
                            name="community_member" value="No"> No
-                      </input>
                 </label>
             <label for="student_option" id="label-student_option">
                     If yes, what organization are you a part of?
@@ -323,7 +289,7 @@
 
             <!-- Input Type Text -->
             <input type="text" id="hear_about_us" name="heard_us"
-                   placeholder="Enter your answer here." />
+                   placeholder="Enter your answer here." required/>
         </div>
 
         <div class="form-control">
@@ -331,7 +297,7 @@
             </label>
             <label for="sign_up_yes">
                 <input type="radio" id="sign_up_yes" 
-                       name="sign_up" value="Yes"> Yes
+                       name="sign_up" value="Yes" required> Yes
                   </input>
             </label>
             <label for="sign_up_no">
