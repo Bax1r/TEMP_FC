@@ -154,7 +154,7 @@ def survey_general():
 		test_conn.close()
 		#Self explanitory
 		return redirect(url_for('home'))
-"""
+
 @app.route('/power_map', methods = ['POST', 'GET'],)
 def power_map(): 
 	if request.method == 'GET':
@@ -187,7 +187,7 @@ def power_map():
 		test_conn.close()
 
 		return render_template('surveyplot.html',age_data=age_data, age_data_quantity=age_data_quantity, news_data=news_data, news_quantity=news_quantity)
-"""
+
 # Plotting for general information and participation survey
 @app.route("/power_map_general", methods = ['POST', 'GET'],)
 def power_map_general(): 
