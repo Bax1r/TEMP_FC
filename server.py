@@ -139,8 +139,15 @@ def survey_general():
 		today = date.today()
 		currentDate = today.strftime("%m/%d/%y")
 		
-		test_cursor.execute(simple.insert('General_Information', f_name, l_name, dob, role, recommend, gender, Pronouns, email, currentDate))
-		test_cursor.execute(simple.insert('participation_data', ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC))
+		data_identifier = test_cursor.execute("SELECT Participation_Identifier FROM General_Information ORDER BY Participation_Identifier DESC LIMIT 1")
+
+		for item in data_identifier:
+			identifier = item[-1]
+
+		identifier += 1
+
+		test_cursor.execute(simple.insert('General_Information', f_name, l_name, dob, role, recommend, gender, Pronouns, email, currentDate, identifier))
+		test_cursor.execute(simple.insert('participation_data', ufsa_CJL, ufsa_LC, la_LC, Rudsdale_FV, la_GSI, la_GS, cali_SPSP, cali_SPSF, cali_DSC, cali_PCGC, identifier))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think

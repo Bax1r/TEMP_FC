@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" 
           content="IE=edge">
-    <meta name="viewport" 
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
         Community Insight
     </title>
@@ -113,15 +113,25 @@
             margin-bottom: 20px;
         }
 
+        .page-container {
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .content-wrap {
+            padding-bottom: 5rem;
+        }
+
         footer {
             background-color: #000000;
             text-align: center;
-            padding: 20px;
-            width: auto;
-            color: #ffffff;
+            padding: 15px;
+            width: 100%;
+            height: 5rem;
             box-sizing: border-box;
-            position: relative;
-            bottom: auto;
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
         }
     </style>
 </head>
@@ -140,278 +150,242 @@
     <h1>Frontline Catalysts Community Insight Survey</h1>
 
     <!-- Create Form -->
-    <form name="insight" action="/survey" method="POST">
+    <div class="page-container">
+        <div class="content-wrap">
+            <form name="insight" action="/survey" method="POST">
+                <div class="form-control">
+                    <label> 
+                        Have you experienced environmental justice in your community?
+                    </label>
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="community_environmental_justice" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="community_environmental_justice" > No
+                    </label>
+                </div>
 
-        <div class="form-control">
-            <label> 
-                Have you experienced environmental justice in your community?
-            </label>
-            <label>
-                <input type="radio" name="community_environmental_justice" value="Yes" required> Yes
-                  </input>
-            </label>
-            <label>
-                <input type="radio" name="community_environmental_justice" value="No"> No
-                  </input>
-            </label>
+                <div class="form-control">
+                    <label> 
+                        Have you seen environmental injustice?
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="seen_environmental_justice" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="seen_environmental_justice" > No
+                    </label>
+                </div>
+                
+                <div class="form-control">
+                    <label> 
+                        Have you experienced any air quality issues in your neighborhood? This includes smells, smoke, etc.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="air_quality_issues" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="air_quality_issues" > No
+                    </label>
+                </div>
+            
+                <div class="form-control">
+                    <label> 
+                        I believe improving the quality of air in my community is an important issue.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="quality_of_air" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="quality_of_air"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        Have you experienced any water quality issues? This includes smells, debris in your run off, color.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="water_quality_issues" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="water_quality_issues"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I believe that improving the quality of drinking water in my community is an important issue.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="improving_drinking_water" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="improving_drinking_water"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I want to see more visible green spaces (parks, trees, etc) within walking distance in my neighborhood.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="visible_green_spaces" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="visible_green_spaces"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I want to see investments in existing green spaces like parks in my neighborhood.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="green_spaces_investments" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="green_spaces_investments"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I see many people utilizing the green spaces in my neighborhood.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="utilizing_green_spaces" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="utilizing_green_spaces"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I want to see more community spaces be built in my neighborhood.
+                    </label>
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="want_to_see_more_community_spaces" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="want_to_see_more_community_spaces"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I believe that increased funding to my local schools is an important issue.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="increased_funding_local_schools" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="increased_funding_local_schools"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        Affordable utilities such as gas, water, electricity, etc. are important to me and my family.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="affordable_utilities_important" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="affordable_utilities_important"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        We need better infrastructures in Oakland in neighborhoods and businesses.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="better_infrastructures_oakland" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="better_infrastructures_oakland"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        Better public transportation is an important public project I would like to see improved.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="better_public_transportation" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="better_public_transportation"> No
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <label> 
+                        I would be interested in participating in projects, actions, or information sessions regarding one or more of the issues I have answered above.
+                    </label>
+                    <!-- Input Type Radio Button -->
+                    <label for="inp-1">
+                        <input type="radio" id="inp-1" 
+                            name="interested_in_participating" value="Yes" required> Yes
+                    </label>
+                    <label for="inp-2">
+                        <input type="radio" id="inp-2" 
+                            name="interested_in_participating"> No
+                    </label>
+                </div>
+
+                <!-- Multi-line Text Input Control -->
+                <button type="submit" value="submit">
+                    Submit
+                </button>
+            </form>
         </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    Have you seen environmental injustice?
-                </label>
-                <!-- Input Type Radio Button -->
-                <label>
-                    <input type="radio" name="seen_environmental_justice" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label>
-                    <input type="radio" name="seen_environmental_justice" value="No"> No
-                      </input>
-                </label>
-            </div>
-        
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    Have you experienced any air quality issues in your neighborhood? This includes smells, smoke, etc.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label>
-                    <input type="radio" name="air_quality_issues" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label>
-                    <input type="radio" name="air_quality_issues" value="No"> No
-                      </input>
-                </label>
-            </div>
-    
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I believe improving the quality of air in my community is an important issue.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="quality_of_air" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="quality_of_air" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    Have you experienced any water quality issues? This includes smells, debris in your run off, color.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="water_quality_issues" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="water_quality_issues" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I believe that improving the quality of drinking water in my community is an important issue.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="improving_drinking_water" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="improving_drinking_water" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I want to see more visible green spaces (parks, trees, etc) within walking distance in my neighborhood.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="visible_green_spaces" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="visible_green_spaces" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I want to see investments in existing green spaces like parks in my neighborhood.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="green_spaces_investments" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="green_spaces_investments" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I see many people utilizing the green spaces in my neighborhood.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="utilizing_green_spaces" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="utilizing_green_spaces" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I want to see more community spaces be built in my neighborhood.
-                </label>
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="want_to_see_more_community_spaces" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="want_to_see_more_community_spaces" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I believe that increased funding to my local schools is an important issue.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="increased_funding_local_schools" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="increased_funding_local_schools" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    Affordable utilities such as gas, water, electricity, etc. are important to me and my family.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="affordable_utilities_important" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="affordable_utilities_important" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    We need better infrastructures in Oakland in neighborhoods and businesses.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="better_infrastructures_oakland" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="better_infrastructures_oakland" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    Better public transportation is an important public project I would like to see improved.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="better_public_transportation" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="better_public_transportation" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <div class="form-control">
-            <label> <div class="form-control">
-                <label> 
-                    I would be interested in participating in projects, actions, or information sessions regarding one or more of the issues I have answered above.
-                </label>
-                <!-- Input Type Radio Button -->
-                <label for="inp-1">
-                    <input type="radio" id="inp-1" 
-                           name="interested_in_participating" value="Yes" required> Yes
-                      </input>
-                </label>
-                <label for="inp-2">
-                    <input type="radio" id="inp-2" 
-                           name="interested_in_participating" value="No"> No
-                      </input>
-            </label>
-        </div>
-
-        <!-- Multi-line Text Input Control -->
-        <button type="submit" value="submit">
-            Submit
-        </button>
-    </form>
-
-    <footer>
-        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
-    </footer>
+        <footer>
+            <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 
 </html>
