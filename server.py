@@ -79,10 +79,10 @@ def survey_demo():
 		affilation = request.form['affilated']
 		school = request.form['school']
 		grade = request.form['grade']
-		organization = request.form['community_member']
+		organization = request.form.get('community_member','no')
 		org_name = request.form['organization_name']
 		heard = request.form['heard_us']
-		newsletter = request.form['sign_up']
+		newsletter = request.form.get('sign_up','no')
 		comment = request.form['comment']
 		now = datetime.datetime.now()
 		
