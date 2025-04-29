@@ -154,7 +154,7 @@ def survey_general():
 		test_conn.close()
 		#Self explanitory
 		return redirect(url_for('home'))
-
+"""
 @app.route('/power_map', methods = ['POST', 'GET'],)
 def power_map(): 
 	if request.method == 'GET':
@@ -187,7 +187,7 @@ def power_map():
 		test_conn.close()
 
 		return render_template('surveyplot.html',age_data=age_data, age_data_quantity=age_data_quantity, news_data=news_data, news_quantity=news_quantity)
-
+"""
 # Plotting for general information and participation survey
 @app.route("/power_map_general", methods = ['POST', 'GET'],)
 def power_map_general(): 
@@ -206,25 +206,25 @@ def power_map_general():
 		# General info: Recommend
 		##############################################################################################################
 		cursor_recommend = test_conn.cursor()
-		recommend_data, recommend_data_quantity = simple.getColumn("General_info", "RECOMMEND", cursor_recommend)
+		recommend_data, recommend_data_quantity = simple.getColumn("General_Information", "Recommend", cursor_recommend)
 
 		##############################################################################################################
 		# General info: Roles
 		##############################################################################################################
 		cursor_role = test_conn.cursor()
-		role_data, role_data_quantity = simple.getColumn("General_info", "ROLE", cursor_role)
+		role_data, role_data_quantity = simple.getColumn("General_Information", "Role", cursor_role)
 
 		##############################################################################################################
 		# General info: Gender
 		##############################################################################################################
 		cursor_gender = test_conn.cursor()
-		gender_data, gender_data_quantity = simple.getColumn("General_info", "GENDER", cursor_gender)
+		gender_data, gender_data_quantity = simple.getColumn("General_Information", "Gender", cursor_gender)
 
 		##############################################################################################################
 		# General info: Pronouns
 		##############################################################################################################
 		cursor_pronouns = test_conn.cursor()
-		pronouns_data, pronouns_data_quantity = simple.getColumn("General_info", "PRONOUNS", cursor_pronouns)
+		pronouns_data, pronouns_data_quantity = simple.getColumn("General_Information", "Pronouns", cursor_pronouns)
 
 		##############################################################################################################
 		#General info: Programs
@@ -233,25 +233,25 @@ def power_map_general():
 		programs = [[], []]
 
 		cursor_UFSA_CJL = test_conn.cursor()
-		UFSA_CJL_labels, UFSA_CJL_data_quantity = simple.getColumnYes("General_info", "UFSA_CJL", cursor_UFSA_CJL, programs)
+		UFSA_CJL_labels, UFSA_CJL_data_quantity = simple.getColumnYes("participation_data", "UFSA_CJL", cursor_UFSA_CJL, programs)
 		cursor_UFSA_LC = test_conn.cursor()
-		UFSA_LC_labels, UFSA_LC_data_quantity = simple.getColumnYes("General_info", "UFSA_LC", cursor_UFSA_LC, programs)
+		UFSA_LC_labels, UFSA_LC_data_quantity = simple.getColumnYes("participation_data", "UFSA_LC", cursor_UFSA_LC, programs)
 		cursor_LA_LC = test_conn.cursor()
-		LA_LC_labels, LA_LC_data_quantity = simple.getColumnYes("General_info", "LA_LC", cursor_LA_LC, programs)
+		LA_LC_labels, LA_LC_data_quantity = simple.getColumnYes("participation_data", "LA_LC", cursor_LA_LC, programs)
 		cursor_RUDSDALE_FV = test_conn.cursor()
-		RUDSDALE_FV_labels, RUDSDALE_FV_data_quantity = simple.getColumnYes("General_info", "RUDSDALE_FV", cursor_RUDSDALE_FV, programs)
+		RUDSDALE_FV_labels, RUDSDALE_FV_data_quantity = simple.getColumnYes("participation_data", "RUDSDALE_FV", cursor_RUDSDALE_FV, programs)
 		cursor_LA_GSI = test_conn.cursor()
-		LA_GSI_labels, LA_GSI_data_quantity = simple.getColumnYes("General_info", "LA_GSI", cursor_LA_GSI, programs)
+		LA_GSI_labels, LA_GSI_data_quantity = simple.getColumnYes("participation_data", "LA_GSI", cursor_LA_GSI, programs)
 		cursor_LA_AC = test_conn.cursor()
-		LA_AC_labels, LA_AC_data_quantity = simple.getColumnYes("General_info", "LA_AC", cursor_LA_AC, programs)
+		LA_AC_labels, LA_AC_data_quantity = simple.getColumnYes("participation_data", "LA_AC", cursor_LA_AC, programs)
 		cursor_CALI_SPSP = test_conn.cursor()
-		CALI_SPSP_labels, CALI_SPSP_data_quantity = simple.getColumnYes("General_info", "CALI_SPSP", cursor_CALI_SPSP, programs)
+		CALI_SPSP_labels, CALI_SPSP_data_quantity = simple.getColumnYes("participation_data", "CALI_SPSP", cursor_CALI_SPSP, programs)
 		cursor_SPSF = test_conn.cursor()
-		CALI_SPSF_labels, CALI_SPSF_data_quantity = simple.getColumnYes("General_info", "CALI_SPSF", cursor_SPSF, programs)
+		CALI_SPSF_labels, CALI_SPSF_data_quantity = simple.getColumnYes("participation_data", "CALI_SPSF", cursor_SPSF, programs)
 		cursor_CALI_DSC = test_conn.cursor()
-		CALI_DSC_labels, CALI_DSC_data_quantity = simple.getColumnYes("General_info", "CALI_DSC", cursor_CALI_DSC, programs)
+		CALI_DSC_labels, CALI_DSC_data_quantity = simple.getColumnYes("participation_data", "CALI_DSC", cursor_CALI_DSC, programs)
 		cursor_CALI_PCGC = test_conn.cursor()
-		CALI_PCGC_labels, CALI_PCGC_data_quantity = simple.getColumnYes("General_info", "CALI_PCGC", cursor_CALI_PCGC, programs)
+		CALI_PCGC_labels, CALI_PCGC_data_quantity = simple.getColumnYes("participation_data", "CALI_PCGC", cursor_CALI_PCGC, programs)
 
 
 		programs_data = programs[0]
