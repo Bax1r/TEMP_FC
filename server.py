@@ -255,7 +255,7 @@ def power_map_general():
 
 
 		programs_data = programs[0]
-		programs_data_quantity = programs[1]
+		programs_data_quantity = programs[-1]
 
 		##############################################################################################################
 
