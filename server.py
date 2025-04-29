@@ -351,6 +351,11 @@ def power_map_demo():
 		
 		return render_template('surveyplotdemo.html', plot_data=plot_data)
 
+# Plotting for survey #3
+@app.route("/power_map_insight")
+def power_map_insight():
+	return render_template('surveyplotinsight.html')
+
 @app.route('/login')
 def login():
 	if request.method == 'GET':
