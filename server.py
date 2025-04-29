@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request
 from flask import url_for
 #import sqlite3
 import sqlitecloud
+import datetime
 from Simple import Simplify
 
 simple = Simplify()
@@ -83,8 +84,9 @@ def survey_demo():
 		heard = request.form['heard_us']
 		newsletter = request.form['sign_up']
 		comment = request.form['comment']
+		now = datetime.datetime.now()
 		
-		test_cursor.execute(simple.insert('testing', race, email, zipcode, affilation, school, grade, organization, org_name, heard, newsletter, comment))
+		test_cursor.execute(simple.insert('testing', race, email, zipcode, affilation, school, grade, organization, org_name, heard, newsletter, comment, now))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
