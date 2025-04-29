@@ -282,7 +282,8 @@ def power_map_general():
 def power_map_demo():
 	if request.method == 'GET':
 		#test_conn = sqlite3.connect("FLC_database.db")
-		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
+		#test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
+		test_conn = sqlitecloud.connect(simple.test_connection())
 
 		def getColumn(table, data, cursor):
 			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function)
@@ -306,31 +307,31 @@ def power_map_demo():
 		# Demographics: School
 		##############################################################################################################
 		cursor_school = test_conn.cursor()
-		school_data, school_data_quantity = getColumn("demographics", "SCHOOL", cursor_school)
+		school_data, school_data_quantity = getColumn("Demographics", "School", cursor_school)
 
 		##############################################################################################################
 		# Demographics: Grade
 		##############################################################################################################
 		cursor_grade = test_conn.cursor()
-		grade_data, grade_data_quantity = getColumn("demographics", "GRADE", cursor_grade)
+		grade_data, grade_data_quantity = getColumn("Demographics", "Grade", cursor_grade)
 
 		##############################################################################################################
 		# Demographics: Organization Member
 		##############################################################################################################
 		cursor_community = test_conn.cursor()
-		community_data, community_data_quantity = getColumn("demographics", "COMMUNITY_MEMBER", cursor_community)
+		community_data, community_data_quantity = getColumn("Demographics", "Community_Member", cursor_community)
 
 		##############################################################################################################
 		# Demographics: Organization
 		##############################################################################################################
 		cursor_org = test_conn.cursor()
-		org_data, org_data_quantity = getColumn("demographics", "ORGANIZATION_NAME", cursor_org)
+		org_data, org_data_quantity = getColumn("Demographics", "Organization_Name", cursor_org)
 
 		##############################################################################################################
 		# Demographics: Newsletter
 		##############################################################################################################
 		cursor_news = test_conn.cursor()
-		news_data, news_data_quantity = getColumn("demographics", "NEWSLETTER_SIGN_UP", cursor_news)
+		news_data, news_data_quantity = getColumn("Demographics", "Newsletter_Sign_Up", cursor_news)
 
 		
 		plot_data = [
