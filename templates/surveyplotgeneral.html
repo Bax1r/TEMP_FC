@@ -43,15 +43,6 @@
             transform: translateX(-50%);
         }
 
-        footer {
-            background-color: #000000;
-            text-align: center;
-            padding: 20px;
-            width: auto;
-            color: #ffffff;
-            box-sizing: border-box;
-        }
-
         /* Styling the Form (Color, Padding, Shadow) */
         form {
             background-color: #fff;
@@ -107,15 +98,38 @@
             margin-bottom: 20px;
         }
 
+        a:link, a:visited {
+            background-color: #000000;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+        background-color: #000000;
+        }
+
+        .page-container {
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .content-wrap {
+            padding-bottom: 5rem;
+        }
+
         footer {
             background-color: #000000;
             text-align: center;
-            padding: 20px;
-            width: auto;
-            color: #ffffff;
+            padding: 15px;
+            width: 100%;
+            height: 5rem;
             box-sizing: border-box;
-            position: relative;
-            bottom: auto;
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
         }
 
         .chart-container {
@@ -137,176 +151,180 @@
         <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
     </header>
 
-    <h1>Power Map</h1>
+    <div class="page-container">
+        <div class="content-wrap">
+            <h1>Power Map</h1>
+            
+            <!--Connect to Charts.JS-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    <!--Connect to Charts.JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+            <!--Initialize charts-->
 
-    <!--Initialize charts-->
+            <!--Row 1-->
+            <div style="display: flex;">
+                <!--General Info: Recommend-->
+                <div class="chart-container">
+                    <canvas id="recommend" style="width:100%;max-width:500px"></canvas>
+                </div>
+                <!--General Info: Role-->
+                <div class="chart-container">
+                    <canvas id="role" style="width:100%;max-width:500px"></canvas>
+                </div>
+                <!--General Info: Gender-->
+                <div class="chart-container">
+                    <canvas id="gender" style="width:100%;max-width:500px"></canvas>
+                </div>
+            </div>
+            <!--Row 2-->
+            <div style="display: flex;">
+                <!--General Info: Pronouns-->
+                <div class="chart-container">
+                    <canvas id="pronouns" style="width:100%;max-width:500px"></canvas>
+                </div>
+                <!--General Info: Programs-->
+                <div class="chart-container">
+                    <canvas id="programs" style="width:100%;max-width:500px"></canvas>
+                </div>
+            </div>
 
-    <!--Row 1-->
-    <div style="display: flex;">
-        <!--General Info: Recommend-->
-        <div class="chart-container">
-            <canvas id="recommend" style="width:100%;max-width:500px"></canvas>
+            
+
+            <!--Initialize plotting data-->
+            <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
+        
+            <script>
+            
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //Convert plotting data into something plottable
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            const plot_data_container = document.getElementById('plot_data_container');
+            const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
+            console.log(plot_data_translated)
+
+            x_recommend = plot_data_translated[0]
+            y_recommend = plot_data_translated[1]
+            x_role = plot_data_translated[2]
+            y_role = plot_data_translated[3]
+            x_gender = plot_data_translated[4]
+            y_gender = plot_data_translated[5]
+            x_pronouns = plot_data_translated[6]
+            y_pronouns = plot_data_translated[7]
+            x_programs = plot_data_translated[8]
+            y_programs = plot_data_translated[9]  
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //Make charts
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+
+                    // General Info: Recommend
+                    new Chart("recommend", {
+                    type: "bar",
+                    data: {
+                        labels: x_recommend,
+                        datasets: [{
+                            label: "Past Participation: Bar",
+                            backgroundColor: barColors,
+                            data: y_recommend
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }});
+
+                    // General Info: Recommend
+                    new Chart("role", {
+                    type: "bar",
+                    data: {
+                        labels: x_role,
+                        datasets: [{
+                            label: "Role: Bar",
+                            backgroundColor: barColors,
+                            data: y_role
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }}); 
+
+                    // General Info: Gender
+                    new Chart("gender", {
+                    type: "bar",
+                    data: {
+                        labels: x_gender,
+                        datasets: [{
+                            label: "Gender: Bar",
+                            backgroundColor: barColors,
+                            data: y_gender
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }});
+
+                    // General Info: Pronouns
+                    new Chart("pronouns", {
+                    type: "bar",
+                    data: {
+                        labels: x_pronouns,
+                        datasets: [{
+                            label: "Pronouns: Bar",
+                            backgroundColor: barColors,
+                            data: y_pronouns
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }});
+
+                    // General Info: Programs
+                    new Chart("programs", {
+                    type: "doughnut",
+                    data: {
+                        labels: x_programs,
+                        datasets: [{
+                            label: "Programs: Doughnut",
+                            backgroundColor: barColors,
+                            data: y_programs
+
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                    }
+                    });
+            </script>
+
         </div>
-        <!--General Info: Role-->
-        <div class="chart-container">
-            <canvas id="role" style="width:100%;max-width:500px"></canvas>
-        </div>
-        <!--General Info: Gender-->
-        <div class="chart-container">
-            <canvas id="gender" style="width:100%;max-width:500px"></canvas>
-        </div>
+        <footer>
+            <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+        </footer>
     </div>
-    <!--Row 2-->
-    <div style="display: flex;">
-        <!--General Info: Pronouns-->
-        <div class="chart-container">
-            <canvas id="pronouns" style="width:100%;max-width:500px"></canvas>
-        </div>
-        <!--General Info: Programs-->
-        <div class="chart-container">
-            <canvas id="programs" style="width:100%;max-width:500px"></canvas>
-        </div>
-    </div>
-
-    
-
-    <!--Initialize plotting data-->
-    <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
-   
-    <script>
-       
-       ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-       //Convert plotting data into something plottable
-       ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-       const plot_data_container = document.getElementById('plot_data_container');
-       const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
-       console.log(plot_data_translated)
-
-       x_recommend = plot_data_translated[0]
-       y_recommend = plot_data_translated[1]
-       x_role = plot_data_translated[2]
-       y_role = plot_data_translated[3]
-       x_gender = plot_data_translated[4]
-       y_gender = plot_data_translated[5]
-       x_pronouns = plot_data_translated[6]
-       y_pronouns = plot_data_translated[7]
-       x_programs = plot_data_translated[8]
-       y_programs = plot_data_translated[9]  
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Make charts
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
-
-            // General Info: Recommend
-            new Chart("recommend", {
-            type: "bar",
-            data: {
-                labels: x_recommend,
-                datasets: [{
-                    label: "Past Participation: Bar",
-                    backgroundColor: barColors,
-                    data: y_recommend
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }});
-
-            // General Info: Recommend
-            new Chart("role", {
-            type: "bar",
-            data: {
-                labels: x_role,
-                datasets: [{
-                    label: "Role: Bar",
-                    backgroundColor: barColors,
-                    data: y_role
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }}); 
-
-            // General Info: Gender
-            new Chart("gender", {
-            type: "bar",
-            data: {
-                labels: x_gender,
-                datasets: [{
-                    label: "Gender: Bar",
-                    backgroundColor: barColors,
-                    data: y_gender
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }});
-
-            // General Info: Pronouns
-            new Chart("pronouns", {
-            type: "bar",
-            data: {
-                labels: x_pronouns,
-                datasets: [{
-                    label: "Pronouns: Bar",
-                    backgroundColor: barColors,
-                    data: y_pronouns
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }});
-
-            // General Info: Programs
-            new Chart("programs", {
-            type: "doughnut",
-            data: {
-                labels: x_programs,
-                datasets: [{
-                    label: "Programs: Doughnut",
-                    backgroundColor: barColors,
-                    data: y_programs
-
-                }]
-            },
-            options: {
-                responsive: true,
-            }
-            });
-    </script>
-
-    <footer>
-        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
-    </footer>
 </body>
 </html>

@@ -43,15 +43,6 @@
             transform: translateX(-50%);
         }
 
-        footer {
-            background-color: #000000;
-            text-align: center;
-            padding: 20px;
-            width: auto;
-            color: #ffffff;
-            box-sizing: border-box;
-        }
-
         /* Styling the Form (Color, Padding, Shadow) */
         form {
             background-color: #fff;
@@ -107,15 +98,38 @@
             margin-bottom: 20px;
         }
 
+        a:link, a:visited {
+            background-color: #000000;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+        background-color: #000000;
+        }
+
+        .page-container {
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .content-wrap {
+            padding-bottom: 5rem;
+        }
+
         footer {
             background-color: #000000;
             text-align: center;
-            padding: 20px;
-            width: auto;
-            color: #ffffff;
+            padding: 15px;
+            width: 100%;
+            height: 5rem;
             box-sizing: border-box;
-            position: relative;
-            bottom: auto;
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
         }
 
         .chart-container {
@@ -137,174 +151,178 @@
         <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
     </header>
 
-    <h1>Power Map</h1>
+    <div class="page-container">
+        <div class="content-wrap">
+            <h1>Power Map</h1>
 
-    <!--Connect to Charts.JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                <!--Connect to Charts.JS-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    <!--Initialize charts-->
+            <!--Initialize charts-->
 
-    <!--Row 1-->
-    <div style="display: flex;">
-        <!--Demographics: School-->
-        <div class="chart-container">
-            <canvas id="school" style="width:100%;max-width:500px"></canvas>
-        </div>
-        <!--Demographics: Grade-->
-        <div class="chart-container">
-            <canvas id="grade" style="width:100%;max-width:500px"></canvas>
-        </div>
-        <!--Demographics: Organization Member?-->
-        <div class="chart-container">
-            <canvas id="orgmember" style="width:100%;max-width:500px"></canvas>
-        </div>
-    </div>
-    <!--Row 2-->
-    <div style="display: flex;">
-        <!--Demographics: Organization-->
-        <div class="chart-container">
-            <canvas id="org" style="width:100%;max-width:500px"></canvas>
-        </div>
-        <!--Demographics: Newsletter?-->
-        <div class="chart-container">
-            <canvas id="news" style="width:100%;max-width:500px"></canvas>
-        </div>
-    </div>
+            <!--Row 1-->
+            <div style="display: flex;">
+                <!--Demographics: School-->
+                <div class="chart-container">
+                    <canvas id="school" style="width:100%;max-width:500px"></canvas>
+                </div>
+                <!--Demographics: Grade-->
+                <div class="chart-container">
+                    <canvas id="grade" style="width:100%;max-width:500px"></canvas>
+                </div>
+                <!--Demographics: Organization Member?-->
+                <div class="chart-container">
+                    <canvas id="orgmember" style="width:100%;max-width:500px"></canvas>
+                </div>
+            </div>
+            <!--Row 2-->
+            <div style="display: flex;">
+                <!--Demographics: Organization-->
+                <div class="chart-container">
+                    <canvas id="org" style="width:100%;max-width:500px"></canvas>
+                </div>
+                <!--Demographics: Newsletter?-->
+                <div class="chart-container">
+                    <canvas id="news" style="width:100%;max-width:500px"></canvas>
+                </div>
+            </div>
 
 
-    <!--Initialize plotting data-->
-        <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
-   
-     <script>
+            <!--Initialize plotting data-->
+                <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
         
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Convert plotting data into something plottable
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            <script>
+                
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //Convert plotting data into something plottable
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        const plot_data_container = document.getElementById('plot_data_container');
-        const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
-        console.log(plot_data_translated)
+                const plot_data_container = document.getElementById('plot_data_container');
+                const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
+                console.log(plot_data_translated)
 
-        x_school = plot_data_translated[0]
-        y_school = plot_data_translated[1]
-        x_grade = plot_data_translated[2]
-        y_grade = plot_data_translated[3]
-        x_orgmember = plot_data_translated[4]
-        y_orgmember = plot_data_translated[5]
-        x_org = plot_data_translated[6]
-        y_org = plot_data_translated[7]
-        x_news = plot_data_translated[8]
-        y_news = plot_data_translated[9]
+                x_school = plot_data_translated[0]
+                y_school = plot_data_translated[1]
+                x_grade = plot_data_translated[2]
+                y_grade = plot_data_translated[3]
+                x_orgmember = plot_data_translated[4]
+                y_orgmember = plot_data_translated[5]
+                x_org = plot_data_translated[6]
+                y_org = plot_data_translated[7]
+                x_news = plot_data_translated[8]
+                y_news = plot_data_translated[9]
 
 
-   
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Make charts
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //Make charts
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+                    const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
 
-            // Demographics: School
-            new Chart("school", {
-            type: "doughnut",
-            data: {
-                labels: x_school,
-                datasets: [{
-                    label: "School: Doughnut",
-                    backgroundColor: barColors,
-                    data: y_school
-                }]
-            },
-            options: {
-                responsive: true,
-            }
-            });
- 
+                    // Demographics: School
+                    new Chart("school", {
+                    type: "doughnut",
+                    data: {
+                        labels: x_school,
+                        datasets: [{
+                            label: "School: Doughnut",
+                            backgroundColor: barColors,
+                            data: y_school
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                    }
+                    });
+        
 
-            // Demographics: Grade
-            new Chart("grade", {
-            type: "bar",
-            data: {
-                labels: x_grade,
-                datasets: [{
-                    label: "Grade: Bar",
-                    backgroundColor: barColors,
-                    data: y_grade
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                    // Demographics: Grade
+                    new Chart("grade", {
+                    type: "bar",
+                    data: {
+                        labels: x_grade,
+                        datasets: [{
+                            label: "Grade: Bar",
+                            backgroundColor: barColors,
+                            data: y_grade
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
                         }
-                    }]
-                }
-            }});
+                    }});
 
-            // Demographics: Organization Member?
-            new Chart("orgmember", {
-            type: "bar",
-            data: {
-                labels: x_orgmember,
-                datasets: [{
-                    label: "Organization Member: Bar",
-                    backgroundColor: barColors,
-                    data: y_orgmember
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                    // Demographics: Organization Member?
+                    new Chart("orgmember", {
+                    type: "bar",
+                    data: {
+                        labels: x_orgmember,
+                        datasets: [{
+                            label: "Organization Member: Bar",
+                            backgroundColor: barColors,
+                            data: y_orgmember
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
                         }
-                    }]
-                }
-            }});
+                    }});
 
-            // Demographics: Organization
-            new Chart("org", {
-            type: "doughnut",
-            data: {
-                labels: x_org,
-                datasets: [{
-                    label: "Organization: Doughnut",
-                    backgroundColor: barColors,
-                    data: y_org
-                }]
-            },
-            options: {
-                responsive: true,
-            }
-            });
+                    // Demographics: Organization
+                    new Chart("org", {
+                    type: "doughnut",
+                    data: {
+                        labels: x_org,
+                        datasets: [{
+                            label: "Organization: Doughnut",
+                            backgroundColor: barColors,
+                            data: y_org
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                    }
+                    });
 
 
-            // Demographics: Newsletter?
-            new Chart("news", {
-            type: "bar",
-            data: {
-                labels: x_news,
-                datasets: [{
-                    label: "Newsletter: Bar",
-                    backgroundColor: barColors,
-                    data: y_news
+                    // Demographics: Newsletter?
+                    new Chart("news", {
+                    type: "bar",
+                    data: {
+                        labels: x_news,
+                        datasets: [{
+                            label: "Newsletter: Bar",
+                            backgroundColor: barColors,
+                            data: y_news
 
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
                         }
-                    }]
-                }
-            }});
-    </script>
+                    }});
+            </script>
 
-    <footer>
-        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
-    </footer>
+        </div>
+        <footer>
+            <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
