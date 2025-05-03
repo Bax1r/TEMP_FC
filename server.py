@@ -341,17 +341,17 @@ def login():
 		password = request.form['password']
 		
 		#These search functions return a list of the valid query results ex:email/username and password
-		data_email = test_cursor.execute(simple.search_all('login', 'EMAIL = ', user, 'EMAIL', 'PASSWORD'))
-
-		if data_email[0] == user:
-			if data_email[-1] == password:
-				return redirect(url_for('power_maps'))
+		data_email = test_cursor.execute(simple.search_all('admin_login', 'EMAIL = ', user, 'EMAIL', 'PASSWORD'))
 
 		test_conn.commit()
 		
 		test_conn.close()
-		
-		return redirect(url_for('login'))
+
+		if data_email[0] == user:
+			if data_email[-1] == password:
+				return render_template("power_map_preview.html")
+		else:
+			return redirect(url_for('login'))
 	
 if __name__ == "__main__":
 	app.run(debug=True)
