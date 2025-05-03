@@ -328,7 +328,7 @@ def power_map_demo():
 def power_map_insight():
 	return render_template('surveyplotinsight.html')
 
-@app.route('/login')
+@app.route('/login', methods = ['POST', 'GET'])
 def login():
 	if request.method == 'GET':
 		return render_template('admin_login.html')
@@ -341,7 +341,8 @@ def login():
 		password = request.form['password']
 		
 		#These search functions return a list of the valid query results ex:email/username and password
-		admin_data = test_cursor.execute(simple.search_all('admin_login', f'EMAIL = {user}'))
+		admin_data = test_cursor.execute(simple.search_all('admin_login', f'EMAIL="{user}"'))
+		#admin_data = test_cursor.execute(f'''SELECT * FROM admin_login WHERE EMAIL={user}''')
 
 		for item in admin_data:
 			data_email = item[0]
@@ -353,7 +354,7 @@ def login():
 
 		if data_email == user:
 			if data_pass == password:
-				return render_template("power_map_preview.html")
+				return redirect(url_for("power_maps"))
 		else:
 			return redirect(url_for('login'))
 	
