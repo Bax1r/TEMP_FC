@@ -18,7 +18,7 @@ def start():
 #Displays home page
 @app.route("/home")
 def home():
-	return render_template('testing.html')
+	return render_template('home.html')
 
 #Survey page
 @app.route("/survey", methods = ['POST', 'GET'],)
@@ -155,38 +155,9 @@ def survey_general():
 		#Self explanitory
 		return redirect(url_for('home'))
 
-@app.route('/power_map', methods = ['POST', 'GET'],)
-def power_map(): 
-	if request.method == 'GET':
-		return redirect(url_for('home'))
-	if request.method == 'GET':
-		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
-		#test_conn = sqlite3.connect('FLC_database.db')
-		test_cursor = test_conn.cursor()
-
-		data = test_cursor.execute(simple.multiples("plottable", "AGE"))
-		
-		age_data=[]
-		age_data_quantity=[]		
-		for row in data:
-			age_data.append(row[0])
-			age_data_quantity.append(row[-1])
-
-		#test_conn.commit()
-
-		data_2 = test_cursor.execute(simple.multiples("demographics", 'NEWSLETTER_SIGN_UP'))
-
-		news_data=[]
-		news_quantity=[]
-		for row in data_2:
-			news_data.append(row[0])
-			news_quantity.append(row[-1])
-
-		test_conn.commit()
-
-		test_conn.close()
-
-		return render_template('surveyplot.html',age_data=age_data, age_data_quantity=age_data_quantity, news_data=news_data, news_quantity=news_quantity)
+@app.route('/power_maps', methods = ['POST', 'GET'],)
+def power_maps(): 
+	return render_template("power_map_preview.html")
 
 # Plotting for general information and participation survey
 @app.route("/power_map_general", methods = ['POST', 'GET'],)
@@ -360,72 +331,27 @@ def power_map_insight():
 @app.route('/login')
 def login():
 	if request.method == 'GET':
-		return render_template('test_login.html')
+		return render_template('admin_login.html')
 	elif request.method == 'POST':
-		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
+		test_conn = sqlitecloud.connect(simple.test_connection())
+		#test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_cursor = test_conn.cursor()
 
 		user = request.form['email']
 		password = request.form['password']
 		
 		#These search functions return a list of the valid query results ex:email/username and password
-		data_email = test_cursor.execute(simple.searchall_or_con('login', 'EMAIL = ', user, 'EMAIL', 'PASSWORD'))
-		data_user = test_cursor.execute(simple.searchall_or_con('login', 'USERNAME = ', user, 'USERNAME', 'PASSWORD'))
+		data_email = test_cursor.execute(simple.search_all('login', 'EMAIL = ', user, 'EMAIL', 'PASSWORD'))
 
-		email = data_email[0]
-		email_pass = data_email[-1]
-
-		user_name = data_user[0]
-		user_pass = data_user[-1]
-
-		if user_name == user or email == user:
-			if user_pass == password or email_pass == password:
-				#return login successful
-				pass
-			else:
-				#return incorrect password
-				pass
-		else:
-			#return invalid username/email
-			pass
+		if data_email[0] == user:
+			if data_email[-1] == password:
+				return redirect(url_for('power_maps'))
 
 		test_conn.commit()
 		
 		test_conn.close()
 		
 		return redirect(url_for('login'))
-
-@app.route('/register')		
-def register():
-	if request.method == 'GET':
-		return render_template('register.html')
-	elif request.method == 'POST':
-		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
-		test_cursor = test_conn.cursor()
-
-		username = request.form['username']
-		email = request.form['email']
-		password = request.form['password']
-		
-		data_email = test_cursor.execute(simple.searchall_or_con('login', 'EMAIL = ', email, 'EMAIL', 'USERNAME'))
-
-		user_email = data_email[0]
-		user_name = data_email[-1]
-
-		if user_email == email:
-			#return email already in use
-			pass
-		elif user_name == username:
-			#return username already in use
-			pass
-		else:
-			test_cursor.execute(simple.insert('login', username, email, password))
-
-		test_conn.commit()
-		
-		test_conn.close()
-		
-		return redirect(url_for('register'))
 	
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -132,15 +132,12 @@
         <a href="{{ url_for('home') }}">
             <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
         </a>
-        <a href="{{ url_for('survey_demo') }}">Demographics</a>
-        <a href="{{ url_for('survey_general')}}">General Info</a>
-        <a href="{{ url_for('survey')}}">Community Insight</a>
-        <a href="{{ url_for('power_map_general')}}">Power Map (gen)</a>
-        <a href="{{ url_for('power_map_demo')}}">Power Map (demo)</a>
-        <a href="{{ url_for('power_map_insight')}}">Power Map (insight)</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <span>Power Map</span>
+        <a href="{{ url_for('power_map_general')}}">Power Map General</a>
+        <a href="{{ url_for('power_map_demo')}}">Power Map Demographics</a>
+        <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
     </header>
+
+    <h1>Power Map</h1>
 
     <!--Connect to Charts.JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>

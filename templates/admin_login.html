@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" 
         content="IE=edge">
-    <meta name="viewport" 
-          content="width=device-width, initial-scale=1.0">
-    <title>Build a Survey Form using HTML and CSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Admin Login Page</title>
 
     <style>
         /* Styling the Body element 
@@ -37,12 +37,6 @@
             margin-right: 1px; /* Adjust the spacing as needed */
         }
 
-        header span{
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
         a:link, a:visited {
             background-color: #000000;
             color: white;
@@ -56,15 +50,27 @@
         background-color: #000000;
         }
 
+        .page-container {
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .content-wrap {
+            padding-bottom: 5rem;
+        }
+
         footer {
             background-color: #000000;
             text-align: center;
-            padding: 20px;
-            width: auto;
-            color: #ffffff;
+            padding: 15px;
+            width: 100%;
+            height: 5rem;
             box-sizing: border-box;
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
         }
-
+        
         /* Styling the Form (Color, Padding, Shadow) */
         form {
             background-color: #fff;
@@ -127,53 +133,38 @@
         <a href="{{ url_for('home') }}">
             <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
         </a>
-        <a href="{{ url_for('survey_demo') }}">Demographics</a>
-        <a href="{{ url_for('survey_general')}}">General Info</a>
-        <a href="{{ url_for('self_assess')}}">Self Assessment</a>
-        <a href="{{ url_for('power_map')}}">Power Map</a>
-        <a href="{{ url_for('login') }}">Login</a>
     </header>
 
-    <!-- Create Form -->
-    <form action="/survey" method="POST">
-        <div class="form-control">
-            <label for="username">
-                Username:
-            </label>
-
-            <input type="text" name="username"
-                    placeholder="Enter your username."/>
-        </div>
-
-        <div class="form-control">
-            <label for="email">
-                Email:
-            </label>
-
-            <input type="text" name="email"
-                    placeholder="Enter your email"/>
-        </div>
-
-        <div class="form-control">
-            <label for="pwd">
-                Password:
-            </label>
-
-            <input type="password" id="pwd" name="pwd" minlength="8"
-                    placeholder="Enter your password"/>
-        </div>
-
+    <div class="page-container">
+        <div class="content-wrap">
+            <form action="/login" method="POST">
+                <div class="form-control">
+                    <label for="login">
+                        Username/Email:
+                    </label>
         
-
-        <!-- Multi-line Text Input Control -->
-        <button type="submit" value="submit">
-            Submit
-        </button>
-    </form>
-    
-    <footer>
-        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
-    </footer>
-
+                    <input type="text" name="login"
+                            placeholder="Enter your email"/>
+                </div>
+                
+                <div class="form-control">
+                    <label for="password">
+                        Password:
+                    </label>
+        
+                    <input type="text" name="password"
+                            placeholder="Enter your password"/>
+                </div>
+        
+                <!-- Multi-line Text Input Control -->
+                <button type="submit" value="submit">
+                    Submit
+                </button>
+            </form>
+        </div>
+        <footer>
+            <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
