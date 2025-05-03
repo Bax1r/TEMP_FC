@@ -337,7 +337,7 @@ def login():
 		#test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_cursor = test_conn.cursor()
 
-		user = request.form['email']
+		user = request.form['login']
 		password = request.form['password']
 		
 		#These search functions return a list of the valid query results ex:email/username and password
