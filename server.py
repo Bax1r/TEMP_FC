@@ -341,7 +341,7 @@ def login():
 		password = request.form['password']
 		
 		#These search functions return a list of the valid query results ex:email/username and password
-		data_email = test_cursor.execute(simple.search_all('admin_login', 'EMAIL = ', user, 'EMAIL', 'PASSWORD'))
+		data_email = test_cursor.execute(simple.search_all('admin_login', f'EMAIL = {user}'))
 
 		test_conn.commit()
 		
