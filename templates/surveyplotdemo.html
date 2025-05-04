@@ -142,17 +142,19 @@
 
 
 <body>
-    <header>
-        <a href="{{ url_for('home') }}">
-            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
-        </a>
-        <a href="{{ url_for('power_map_general')}}">Power Map General</a>
-        <a href="{{ url_for('power_map_demo')}}">Power Map Demographics</a>
-        <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
-    </header>
+
 
     <div class="page-container">
         <div class="content-wrap">
+            <header>
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+                </a>
+                <a href="{{ url_for('power_map_general')}}">Power Map General</a>
+                <a href="{{ url_for('power_map_demo')}}">Power Map Demographics</a>
+                <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
+            </header>            
+            
             <h1>Power Map</h1>
 
                 <!--Connect to Charts.JS-->

@@ -74,18 +74,20 @@
 </head>
 
 <body>
-    <header>
-        <a href="{{ url_for('home') }}">
-            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
-        </a>
-        <a href="{{ url_for('power_map_general')}}">Power Map General</a>
-        <a href="{{ url_for('power_map_demo')}}">Power Map Demographics</a>
-        <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
-    </header>
+
     
     <div class="page-container">
         <div class="content-wrap">
-            <iframe src="surveyplotgeneral.html" width="400" height="700"></iframe>
+            <header>
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+                </a>
+                <a href="{{ url_for('power_map_general')}}">Power Map General</a>
+                <a href="{{ url_for('power_map_demo')}}">Power Map Demographics</a>
+                <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
+            </header>
+
+            <iframe src="surveyplotgeneral.html" width="400" height="auto"></iframe>
         </div>
         <footer>
             <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>

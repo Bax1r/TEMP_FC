@@ -135,20 +135,23 @@
 </head>
 
 <body>
-    <header>
-        <a href="{{ url_for('home') }}">
-            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
-        </a>
-        <a href="{{ url_for('survey_demo') }}">Demographics</a>
-        <a href="{{ url_for('survey_general')}}">General Info</a>
-        <a href="{{ url_for('survey')}}">Community Insight</a>
-        <a href="{{ url_for('login') }}">Login</a>
-    </header>
-        <h1>Frontline Catalysts General Information and Participation survey</h1>
+
 
     <!-- Create Form -->
     <div class="page-container">
         <div class="content-wrap">
+            <header>
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+                </a>
+                <a href="{{ url_for('survey_demo') }}">Demographics</a>
+                <a href="{{ url_for('survey_general')}}">General Info</a>
+                <a href="{{ url_for('survey')}}">Community Insight</a>
+                <a href="{{ url_for('login') }}">Admin Login</a>
+            </header>
+            
+            <h1>Frontline Catalysts General Information and Participation survey</h1>            
+            
             <form name="general" action="/survey_general" method="POST">
                 <div class="form-control">
                     <label for="firstname">
