@@ -1,3 +1,6 @@
+from datetime import datetime
+from dateutil import relativedelta
+
 """
 File Name: Simple.py
 Author: Bryan Insfran
@@ -118,7 +121,6 @@ class Simplify():
     def multiples_yes_var(self, table, col):
         return (f"SELECT COUNT({col}) FROM {table} WHERE TRIM({col})='Yes' GROUP BY {col}")
 
-
     def getColumn(self, table, data, cursor):
 			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function)
 			# Returns: List of possible entries, amount of each entry found
@@ -137,7 +139,6 @@ class Simplify():
 
             return column_data, column_data_quantity
     
-
     def getColumnYes(self, table, data, cursor, destination):
 			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function), destination (place data is put into)
 			# Returns: List of possible entries, amount of each entry found
@@ -152,12 +153,47 @@ class Simplify():
                 return data, value
             return None, None
     
+    def getYears(self, cursor1, cursor2):
+        # Arguments: cursor1 (corresponds to birth dates), cursor2 (corresponds to submission dates)
+        # Returns: A list containing every year value submitted, and a list containing every count for the respective years
+        # Additional note: This code currently only works for the General_info survey, which is why the table is not an input.
 
-    def getYears(self, table, cursor1, cursor2):
-        birth_data, birth_data_quantity = self.getColumn(table, "DATEOFBIRTH", cursor1)
-        date_data, date_data_quantity = self.getColumn(table, "TIME_SUBMITTED", cursor2)
-
+        birth_data = cursor1.execute("SELECT DATEOFBIRTH FROM General_info").fetchall()
+        date_data = cursor2.execute("SELECT TIME_SUBMITTED FROM General_info").fetchall()
+        years = []
+        counts = []
         for i in range(0, (min(len(birth_data), len(date_data)))):
 
-            pass
-        return None
+                if birth_data[i] != "N/A" and date_data[i] != "N/A":
+                    # Convert to strings
+                    birth_convert = str(birth_data[i])
+                    birth_convert = birth_convert[2:(len(birth_convert)-3)]
+                    date_convert = str(date_data[i])
+                    date_convert = date_convert[2:(len(date_convert)-3)]
+
+                    # Convert to date format
+                    birth_date = datetime.strptime(birth_convert, "%Y-%m-%d")
+                    sub_date = datetime.strptime(date_convert, "%Y-%m-%d")
+
+                    # Get difference in years
+                    delta = relativedelta.relativedelta(sub_date, birth_date)
+
+                    # Check for duplicates
+                    if delta.years not in years:
+                        years.append(delta.years)
+                        counts.append(0)
+
+                    # Add to count
+                    year_index = years.index(delta.years)
+                    counts[year_index] += 1
+
+
+        #print(years)
+        #print(counts)
+        sorted_pairs = sorted(zip(years, counts))
+        years_sorted = [v1 for v1, v2 in sorted_pairs]
+        counts_sorted = [v2 for v1, v2 in sorted_pairs]
+        #print(years_sorted)
+        #print(counts_sorted)
+
+        return years_sorted, counts_sorted

@@ -185,9 +185,9 @@ def power_map_general():
 		##############################################################################################################
 		# General info: Age
 		##############################################################################################################
-		#cursor_age = test_conn.cursor()
-		#cursor_date = test_conn.cursor()
-		#age_data, age_data_quantity = getYears("General_info", cursor_age, cursor_date)
+		cursor_age = test_conn.cursor()
+		cursor_date = test_conn.cursor()
+		ages_data, ages_data_quantity = simple.getYears(cursor_age, cursor_date)
 
 		##############################################################################################################
 		# General info: Recommend
@@ -242,11 +242,13 @@ def power_map_general():
 
 
 		programs_data = programs[0]
-		programs_data_quantity = programs[-1]
+		programs_data_quantity = programs[1]
 
 		##############################################################################################################
 
 		plot_data = [
+			ages_data,
+			ages_data_quantity,
 			recommend_data, 
 			recommend_data_quantity, 
 			role_data,

@@ -190,138 +190,91 @@
                 </div>
             </div>
 
-            
-
             <!--Initialize plotting data-->
             <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
         
             <script>
-            
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //Convert plotting data into something plottable
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            const plot_data_container = document.getElementById('plot_data_container');
-            const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
-            console.log(plot_data_translated)
-
-            x_recommend = plot_data_translated[0]
-            y_recommend = plot_data_translated[1]
-            x_role = plot_data_translated[2]
-            y_role = plot_data_translated[3]
-            x_gender = plot_data_translated[4]
-            y_gender = plot_data_translated[5]
-            x_pronouns = plot_data_translated[6]
-            y_pronouns = plot_data_translated[7]
-            x_programs = plot_data_translated[8]
-            y_programs = plot_data_translated[9]  
-
+       
                 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //Make charts
+                //Convert plotting data into something plottable
                 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                    const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
-
-                    // General Info: Recommend
-                    new Chart("recommend", {
-                    type: "bar",
-                    data: {
-                        labels: x_recommend,
-                        datasets: [{
-                            label: "Past Participation: Bar",
-                            backgroundColor: barColors,
-                            data: y_recommend
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }});
-
-                    // General Info: Recommend
-                    new Chart("role", {
-                    type: "bar",
-                    data: {
-                        labels: x_role,
-                        datasets: [{
-                            label: "Role: Bar",
-                            backgroundColor: barColors,
-                            data: y_role
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }}); 
-
-                    // General Info: Gender
-                    new Chart("gender", {
-                    type: "bar",
-                    data: {
-                        labels: x_gender,
-                        datasets: [{
-                            label: "Gender: Bar",
-                            backgroundColor: barColors,
-                            data: y_gender
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }});
-
-                    // General Info: Pronouns
-                    new Chart("pronouns", {
-                    type: "bar",
-                    data: {
-                        labels: x_pronouns,
-                        datasets: [{
-                            label: "Pronouns: Bar",
-                            backgroundColor: barColors,
-                            data: y_pronouns
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }});
-
-                    // General Info: Programs
-                    new Chart("programs", {
-                    type: "doughnut",
-                    data: {
-                        labels: x_programs,
-                        datasets: [{
-                            label: "Programs: Doughnut",
-                            backgroundColor: barColors,
-                            data: y_programs
-
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                    }
-                    });
+         
+                const plot_data_container = document.getElementById('plot_data_container');
+                const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
+                console.log(plot_data_translated)
+         
+                x_age = plot_data_translated[0]
+                y_age = plot_data_translated[1]
+                x_recommend = plot_data_translated[2]
+                y_recommend = plot_data_translated[3]
+                x_role = plot_data_translated[4]
+                y_role = plot_data_translated[5]
+                x_gender = plot_data_translated[6]
+                y_gender = plot_data_translated[7]
+                x_pronouns = plot_data_translated[8]
+                y_pronouns = plot_data_translated[9]
+                x_programs = plot_data_translated[10]
+                y_programs = plot_data_translated[11]  
+         
+                 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                 //Make charts
+                 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+         
+                     const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+         
+                     // Arguments: The chart id (string), x axis variables (list), y axis variables (list), label (string)
+                     function makeBarChart(id_string, x_vars, y_vars, label){
+                         new Chart(id_string, {
+                         type: "bar",
+                         data: {
+                             labels: x_vars,
+                             datasets: [{
+                                 label: label,
+                                 backgroundColor: barColors,
+                                 data: y_vars
+                             }]
+                         },
+                         options: {
+                             scales: {
+                                 yAxes: [{
+                                     ticks: {
+                                         beginAtZero: true
+                                     }
+                                 }]
+                             }
+                         }});
+                     }
+                     // Arguments: The chart id (string), x axis variables (list), y axis variables (list), label (string)
+                     function makeDoughnutChart(id_string, x_vars, y_vars, label){
+                         new Chart(id_string, {
+                         type: "doughnut",
+                         data: {
+                             labels: x_vars,
+                             datasets: [{
+                                 label: label,
+                                 backgroundColor: barColors,
+                                 data: y_vars
+         
+                             }]
+                         },
+                         options: {
+                             responsive: true,
+                         }
+                         });
+                     }
+         
+                     // General Info: Age
+                     makeBarChart("age", x_age, y_age, "Age: Bar")
+                     // General Info: Recommend
+                     makeBarChart("recommend", x_recommend, y_recommend, "Past Participation: Bar")
+                     // General Info: Role
+                     makeBarChart("role", x_role, y_role, "Role: Bar")
+                     // General Info: Gender
+                     makeBarChart("gender", x_gender, y_gender, "Gender: Bar")
+                     // General Info: Pronouns
+                     makeBarChart("pronouns", x_pronouns, y_pronouns, "Pronouns: Bar")
+                     // General Info: Programs
+                     makeDoughnutChart("programs", x_programs, y_programs, "Programs: Bar")
             </script>
 
         </div>
