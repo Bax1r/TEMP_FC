@@ -269,64 +269,78 @@ def power_map_general():
 
 		return render_template('surveyplotgeneral.html', plot_data=plot_data)
 
-# Plotting for demographics survey
 @app.route("/power_map_demo")
 def power_map_demo():
 	if request.method == 'GET':
 		#test_conn = sqlite3.connect("FLC_database.db")
-		#test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
 		test_conn = sqlitecloud.connect(simple.test_connection())
 
-		def getColumn(table, data, cursor):
-			# Arguments: table (A table of the database), data (a column), cursor (new cursor for every use of this function)
-			# Returns: List of possible entries, amount of each entry found
-			cursor.execute(simple.multiples(table,data))
-			column = cursor.fetchall()
-		
-			column_data=[]
-			column_data_quantity=[]		
-			for row in column:
-				if row[0] == '' or row[0] == None:
-					column_data.append("N/A")
-					column_data_quantity.append(row[-1])
-				else:
-					column_data.append(row[0])
-					column_data_quantity.append(row[-1])
+		##############################################################################################################
+		#General info: Programs
+		##############################################################################################################
+		# The data we want from Programs
+		races = [[], []]
 
-			return column_data, column_data_quantity
+		cursor_white = test_conn.cursor()
+		white_labels, white_data_quantity = simple.getColumnYes("race_data", "White", cursor_white, races)
+		cursor_native = test_conn.cursor()
+		native_labels, native_data_quantity = simple.getColumnYes("race_data", "American_Native", cursor_native, races)
+		cursor_asian = test_conn.cursor()
+		asian_labels, asian_data_quantity = simple.getColumnYes("race_data", "Asian", cursor_asian, races)
+		cursor_black = test_conn.cursor()
+		black_labels, black_data_quantity = simple.getColumnYes("race_data", "Black", cursor_black, races)
+		cursor_hispanic = test_conn.cursor()
+		hispanic_labels, hispanic_data_quantity = simple.getColumnYes("race_data", "Hispanic", cursor_hispanic, races)
+		cursor_latine = test_conn.cursor()
+		latine_labels, latine_data_quantity = simple.getColumnYes("race_data", "Latine", cursor_latine, races)
+		cursor_middle = test_conn.cursor()
+		middle_labels, middle_data_quantity = simple.getColumnYes("race_data", "Middle_Eastern", cursor_middle, races)
+		cursor_pacific = test_conn.cursor()
+		pacific_labels, pacific_data_quantity = simple.getColumnYes("race_data", "Pacific_Islander", cursor_pacific, races)
+		cursor_none = test_conn.cursor()
+		none_labels, none_data_quantity = simple.getColumnYes("race_data", "None", cursor_none, races)
+
+
+
+		races_data = races[0]
+		races_data_quantity = races[1]
+
+		##############################################################################################################
 		
 		##############################################################################################################
 		# Demographics: School
 		##############################################################################################################
 		cursor_school = test_conn.cursor()
-		school_data, school_data_quantity = getColumn("Demographics", "School", cursor_school)
+		school_data, school_data_quantity = simple.getColumn("demographics", "SCHOOL", cursor_school)
 
 		##############################################################################################################
 		# Demographics: Grade
 		##############################################################################################################
 		cursor_grade = test_conn.cursor()
-		grade_data, grade_data_quantity = getColumn("Demographics", "Grade", cursor_grade)
+		grade_data, grade_data_quantity = simple.getColumn("demographics", "GRADE", cursor_grade)
 
 		##############################################################################################################
 		# Demographics: Organization Member
 		##############################################################################################################
 		cursor_community = test_conn.cursor()
-		community_data, community_data_quantity = getColumn("Demographics", "Community_Member", cursor_community)
+		community_data, community_data_quantity = simple.getColumn("demographics", "COMMUNITY_MEMBER", cursor_community)
 
 		##############################################################################################################
 		# Demographics: Organization
 		##############################################################################################################
 		cursor_org = test_conn.cursor()
-		org_data, org_data_quantity = getColumn("Demographics", "Organization_Name", cursor_org)
+		org_data, org_data_quantity = simple.getColumn("demographics", "ORGANIZATION_NAME", cursor_org)
 
 		##############################################################################################################
 		# Demographics: Newsletter
 		##############################################################################################################
 		cursor_news = test_conn.cursor()
-		news_data, news_data_quantity = getColumn("Demographics", "Newsletter_Sign_Up", cursor_news)
+		news_data, news_data_quantity = simple.getColumn("demographics", "NEWSLETTER_SIGN_UP", cursor_news)
 
 		
 		plot_data = [
+			races_data,
+			races_data_quantity,
 			school_data, 
 			school_data_quantity, 
 			grade_data,

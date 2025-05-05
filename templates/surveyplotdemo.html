@@ -8,7 +8,6 @@
     <meta name="viewport" 
           content="width=device-width, initial-scale=1.0">
     <title>Build a Survey Form using HTML and CSS</title>
-    <link rel="icon" type="image" href="{{ url_for('static', filename='FC-logo-icon.webp')}}">
 
     <style>
         /* Styling the Body element 
@@ -42,6 +41,15 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+        }
+
+        footer {
+            background-color: #000000;
+            text-align: center;
+            padding: 20px;
+            width: auto;
+            color: #ffffff;
+            box-sizing: border-box;
         }
 
         /* Styling the Form (Color, Padding, Shadow) */
@@ -99,38 +107,15 @@
             margin-bottom: 20px;
         }
 
-        a:link, a:visited {
-            background-color: #000000;
-            color: white;
-            padding: 14px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        a:hover, a:active {
-        background-color: #000000;
-        }
-
-        .page-container {
-            position: relative;
-            min-height: 100vh;
-        }
-        
-        .content-wrap {
-            padding-bottom: 5rem;
-        }
-
         footer {
             background-color: #000000;
             text-align: center;
-            padding: 15px;
-            width: 100%;
-            height: 5rem;
-            box-sizing: border-box;
+            padding: 20px;
+            width: auto;
             color: #ffffff;
-            position: absolute;
-            bottom: 0;
+            box-sizing: border-box;
+            position: relative;
+            bottom: auto;
         }
 
         .chart-container {
@@ -143,189 +128,151 @@
 
 
 <body>
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
+        </a>
+        <a href="{{ url_for('survey_demo') }}">Demographics</a>
+        <a href="{{ url_for('survey_general')}}">General Info</a>
+        <a href="{{ url_for('self_assess')}}">Self Assessment</a>
+        <a href="{{ url_for('power_map_general')}}">Power Map (gen)</a>
+        <a href="{{ url_for('power_map_demo')}}">Power Map (demo)</a>
+        <a href="{{ url_for('power_map_insight')}}">Power Map (insight)</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <span>Power Map</span>
+    </header>
 
+    <!--Connect to Charts.JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    <div class="page-container">
-        <div class="content-wrap">
-            <header>
-                <a href="{{ url_for('home') }}">
-                    <img src="{{ url_for('static', filename='Full-FC-logo-for-dark-bckgnd.png')}}" alt="Frontline Catalysts Logo" width="250" height="auto">
-                </a>
-                <a href="{{ url_for('power_map_general')}}">Power Map General</a>
-                <a href="{{ url_for('power_map_demo')}}">Power Map Demographics</a>
-                <a href="{{ url_for('power_map_insight')}}">Power Map Insight</a>
-            </header>            
-            
-            <h1>Power Map</h1>
+    <!--Initialize charts-->
 
-                <!--Connect to Charts.JS-->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-
-            <!--Initialize charts-->
-
-            <!--Row 1-->
-            <div style="display: flex;">
-                <!--Demographics: School-->
-                <div class="chart-container">
-                    <canvas id="school" style="width:100%;max-width:500px"></canvas>
-                </div>
-                <!--Demographics: Grade-->
-                <div class="chart-container">
-                    <canvas id="grade" style="width:100%;max-width:500px"></canvas>
-                </div>
-                <!--Demographics: Organization Member?-->
-                <div class="chart-container">
-                    <canvas id="orgmember" style="width:100%;max-width:500px"></canvas>
-                </div>
-            </div>
-            <!--Row 2-->
-            <div style="display: flex;">
-                <!--Demographics: Organization-->
-                <div class="chart-container">
-                    <canvas id="org" style="width:100%;max-width:500px"></canvas>
-                </div>
-                <!--Demographics: Newsletter?-->
-                <div class="chart-container">
-                    <canvas id="news" style="width:100%;max-width:500px"></canvas>
-                </div>
-            </div>
-
-
-            <!--Initialize plotting data-->
-                <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
-        
-            <script>
-                
-                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //Convert plotting data into something plottable
-                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                const plot_data_container = document.getElementById('plot_data_container');
-                const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
-                console.log(plot_data_translated)
-
-                x_school = plot_data_translated[0]
-                y_school = plot_data_translated[1]
-                x_grade = plot_data_translated[2]
-                y_grade = plot_data_translated[3]
-                x_orgmember = plot_data_translated[4]
-                y_orgmember = plot_data_translated[5]
-                x_org = plot_data_translated[6]
-                y_org = plot_data_translated[7]
-                x_news = plot_data_translated[8]
-                y_news = plot_data_translated[9]
-
-
-        
-                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //Make charts
-                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                    const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
-
-                    // Demographics: School
-                    new Chart("school", {
-                    type: "doughnut",
-                    data: {
-                        labels: x_school,
-                        datasets: [{
-                            label: "School: Doughnut",
-                            backgroundColor: barColors,
-                            data: y_school
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                    }
-                    });
-        
-
-                    // Demographics: Grade
-                    new Chart("grade", {
-                    type: "bar",
-                    data: {
-                        labels: x_grade,
-                        datasets: [{
-                            label: "Grade: Bar",
-                            backgroundColor: barColors,
-                            data: y_grade
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }});
-
-                    // Demographics: Organization Member?
-                    new Chart("orgmember", {
-                    type: "bar",
-                    data: {
-                        labels: x_orgmember,
-                        datasets: [{
-                            label: "Organization Member: Bar",
-                            backgroundColor: barColors,
-                            data: y_orgmember
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }});
-
-                    // Demographics: Organization
-                    new Chart("org", {
-                    type: "doughnut",
-                    data: {
-                        labels: x_org,
-                        datasets: [{
-                            label: "Organization: Doughnut",
-                            backgroundColor: barColors,
-                            data: y_org
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                    }
-                    });
-
-
-                    // Demographics: Newsletter?
-                    new Chart("news", {
-                    type: "bar",
-                    data: {
-                        labels: x_news,
-                        datasets: [{
-                            label: "Newsletter: Bar",
-                            backgroundColor: barColors,
-                            data: y_news
-
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }});
-            </script>
-
+    <!--Row 1-->
+    <div style="display: flex; justify-content: center;">
+        <!--Demographics: Race-->
+        <div class="chart-container">
+            <canvas id="race" style="width:100%;max-width:500px"></canvas>
         </div>
-        <footer>
-            <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
-        </footer>
+        <!--Demographics: School-->
+        <div class="chart-container">
+            <canvas id="school" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--Demographics: Grade-->
+        <div class="chart-container">
+            <canvas id="grade" style="width:100%;max-width:500px"></canvas>
+        </div>
     </div>
+    <!--Row 2-->
+    <div style="display: flex; justify-content: center;">
+        <!--Demographics: Organization Member?-->
+        <div class="chart-container">
+            <canvas id="orgmember" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--Demographics: Organization-->
+        <div class="chart-container">
+            <canvas id="org" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <!--Demographics: Newsletter?-->
+        <div class="chart-container">
+            <canvas id="news" style="width:100%;max-width:500px"></canvas>
+        </div>
+    </div>
+
+
+    <!--Initialize plotting data-->
+        <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
+   
+     <script>
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Convert plotting data into something plottable
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        const plot_data_container = document.getElementById('plot_data_container');
+        const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
+        console.log(plot_data_translated)
+
+        x_race = plot_data_translated[0]
+        y_race = plot_data_translated[1]
+        x_school = plot_data_translated[2]
+        y_school = plot_data_translated[3]
+        x_grade = plot_data_translated[4]
+        y_grade = plot_data_translated[5]
+        x_orgmember = plot_data_translated[6]
+        y_orgmember = plot_data_translated[7]
+        x_org = plot_data_translated[8]
+        y_org = plot_data_translated[9]
+        x_news = plot_data_translated[10]
+        y_news = plot_data_translated[11]
+
+
+   
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Make charts
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+
+            // Arguments: The chart id (string), x axis variables (list), y axis variables (list), label (string)
+            function makeBarChart(id_string, x_vars, y_vars, label){
+                new Chart(id_string, {
+                type: "bar",
+                data: {
+                    labels: x_vars,
+                    datasets: [{
+                        label: label,
+                        backgroundColor: barColors,
+                        data: y_vars
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }});
+            }
+            // Arguments: The chart id (string), x axis variables (list), y axis variables (list), label (string)
+            function makeDoughnutChart(id_string, x_vars, y_vars, label){
+                new Chart(id_string, {
+                type: "doughnut",
+                data: {
+                    labels: x_vars,
+                    datasets: [{
+                        label: label,
+                        backgroundColor: barColors,
+                        data: y_vars
+
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+                });
+            }
+
+            // Demographics: Race
+            makeDoughnutChart("race", x_race, y_race, "Race: Doughnut")
+            // Demographics: School
+            makeDoughnutChart("school", x_school, y_school, "School: Doughnut")
+            // Demographics: Grade
+            makeBarChart("grade", x_grade, y_grade, "Grade: Bar")
+            // Demographics: Organization Member
+            makeBarChart("orgmember", x_orgmember, y_orgmember, "Organization Member: Bar")
+            // Demographics: Organization
+            makeDoughnutChart("org", x_org, y_org, "Organization: Doughnut")
+            // Demographics: Newsletter
+            makeBarChart("news", x_news, y_news, "Newsletter: Bar")
+    </script>
+
+
+
+
+    <footer>
+        <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
+    </footer>
 </body>
 </html>
