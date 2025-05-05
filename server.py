@@ -76,9 +76,6 @@ def survey_demo():
 		#Retrieves the information from the survey using request.form[x]
 		#where x is the 'name' of the variable in the html file
 		#Storing retrieved data in variables with corresponding names
-		race_list = request.form.getlist('race')
-		#Convert list to str
-
 		white = request.form.get('white', 'No')
 		american = request.form.get('american-native', 'No')
 		asian = request.form.get('asian', 'No')
@@ -89,8 +86,6 @@ def survey_demo():
 		pacific_islander = request.form.get('pacific-islander', 'No')
 		none = request.form.get('none', 'No')
 		other = request.form.get('other', 'No')
-
-		race = ' '.join(race_list)
 		email = request.form['email']
 		zipcode = request.form['zipcode']
 		affiliation_list = request.form.getlist('affiliated')
@@ -108,7 +103,7 @@ def survey_demo():
 		today = date.today()
 		currentDate = today.strftime("%m/%d/%y")
 		
-		data_identifier = test_cursor.execute("SELECT Participation_Identifier FROM General_Information ORDER BY Participation_Identifier DESC LIMIT 1")
+		data_identifier = test_cursor.execute("SELECT Race_Identifier FROM Demographics ORDER BY Race_Identifier DESC LIMIT 1")
 
 		for item in data_identifier:
 			identifier = item[-1]
