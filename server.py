@@ -52,7 +52,7 @@ def survey():
 		participation_interest = request.form.get('interested_in_participating', 'No')
 		# Date of submission
 		today = date.today()
-		currentDate = today.strftime("%m/%d/%y")
+		currentDate = today.strftime("%Y-%m-%d")
 		#Insert data into table
 		test_cursor.execute(simple.insert('Community_Insight', community_ej, seen_ej, air_qi, quality_of_air, water_qi, improve_water_quality,
 									green_spaces, invest_green, use_green_spaces, more_community_spaces, increase_school_funding, affordable_utilities,
@@ -101,7 +101,7 @@ def survey_demo():
 
 		# Date of submission
 		today = date.today()
-		currentDate = today.strftime("%m/%d/%y")
+		currentDate = today.strftime("%Y-%m-%d")
 		
 		data_identifier = test_cursor.execute("SELECT Race_Identifier FROM Demographics ORDER BY Race_Identifier DESC LIMIT 1")
 
@@ -153,7 +153,7 @@ def survey_general():
 
 		# Date of submission
 		today = date.today()
-		currentDate = today.strftime("%m/%d/%y")
+		currentDate = today.strftime("%Y-%m-%d")
 		
 		data_identifier = test_cursor.execute("SELECT Participation_Identifier FROM General_Information ORDER BY Participation_Identifier DESC LIMIT 1")
 
