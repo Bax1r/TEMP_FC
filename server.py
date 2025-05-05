@@ -71,13 +71,25 @@ def survey_demo():
 		return render_template('demographics.html')
 	elif request.method == 'POST':
 		#Establishes a connection object with the database
-		test_conn = sqlitecloud.connect("sqlitecloud://ccd05tfthz.g1.sqlite.cloud:8860/Testing?apikey=Mji9QZnn0DLv8by9woBTc105GxkTltAVbcixpOF71Cg")
+		test_conn = sqlitecloud.connect(simple.test_connection())
 		test_cursor = test_conn.cursor()
 		#Retrieves the information from the survey using request.form[x]
 		#where x is the 'name' of the variable in the html file
 		#Storing retrieved data in variables with corresponding names
 		race_list = request.form.getlist('race')
 		#Convert list to str
+
+		white = request.form.get('white', 'No')
+		american = request.form.get('american-native', 'No')
+		asian = request.form.get('asian', 'No')
+		black = request.form.get('black', 'No')
+		hispanic = request.form.get('hispanic', 'No')
+		latine = request.form.get('latine', 'No')
+		middle_eastern = request.form.get('middle-eastern', 'No')
+		pacific_islander = request.form.get('pacific-islander', 'No')
+		none = request.form.get('none', 'No')
+		other = request.form.get('other', 'No')
+
 		race = ' '.join(race_list)
 		email = request.form['email']
 		zipcode = request.form['zipcode']
@@ -91,11 +103,20 @@ def survey_demo():
 		heard = request.form['heard_us']
 		newsletter = request.form.get('sign_up', 'no')
 		comment = request.form['comment']
+
 		# Date of submission
 		today = date.today()
 		currentDate = today.strftime("%m/%d/%y")
 		
-		test_cursor.execute(simple.insert('demographics', race, email, zipcode, affiliation, school, grade, organization, org_name, heard, newsletter, comment, currentDate))
+		data_identifier = test_cursor.execute("SELECT Participation_Identifier FROM General_Information ORDER BY Participation_Identifier DESC LIMIT 1")
+
+		for item in data_identifier:
+			identifier = item[-1]
+
+		identifier += 1
+
+		test_cursor.execute(simple.insert('Demographics', email, zipcode, school, grade, organization, org_name, heard, newsletter, comment, affiliation, currentDate, identifier))
+		test_cursor.execute(simple.insert('race_data', white, american, asian, black, hispanic, latine, middle_eastern, pacific_islander, none, other, currentDate, identifier))
 		#'Posts' the executed command
 		test_conn.commit()
 		#Closes the connection object, to ensure "safety" I think
