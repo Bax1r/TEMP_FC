@@ -158,8 +158,8 @@ class Simplify():
         # Returns: A list containing every year value submitted, and a list containing every count for the respective years
         # Additional note: This code currently only works for the General_info survey, which is why the table is not an input.
 
-        birth_data = cursor1.execute("SELECT DATEOFBIRTH FROM General_info").fetchall()
-        date_data = cursor2.execute("SELECT TIME_SUBMITTED FROM General_info").fetchall()
+        birth_data = cursor1.execute("SELECT DATEOFBIRTH FROM General_Information").fetchall()
+        date_data = cursor2.execute("SELECT TIME_SUBMITTED FROM General_Information").fetchall()
         years = []
         counts = []
         for i in range(0, (min(len(birth_data), len(date_data)))):
