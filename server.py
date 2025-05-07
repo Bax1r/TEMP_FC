@@ -358,7 +358,150 @@ def power_map_demo():
 # Plotting for survey #3
 @app.route("/power_map_insight")
 def power_map_insight():
-	return render_template('surveyplotinsight.html')
+	if request.method == 'GET':
+		test_conn = sqlitecloud.connect(simple.test_connection())
+
+		##############################################################################################################
+		# Insight: Community Environmental Justice
+		##############################################################################################################
+		cursor_just = test_conn.cursor()
+		just_data, just_data_quantity = simple.getColumn("Community_Insight", "COMMUNITY_ENVIR_JUSTICE", cursor_just)
+		print(just_data, just_data_quantity)
+
+		##############################################################################################################
+		# Insight: Seen Environmental Justice
+		##############################################################################################################
+		cursor_seen = test_conn.cursor()
+		seen_data, seen_data_quantity = simple.getColumn("Community_Insight", "SEEN_ENVIR_JUSTICE", cursor_seen)
+		print(seen_data, seen_data_quantity)
+
+		##############################################################################################################
+		# Insight: Air Quality Issues
+		##############################################################################################################
+		cursor_air = test_conn.cursor()
+		air_data, air_data_quantity = simple.getColumn("Community_Insight", "AIR_QUALITY_ISSUES", cursor_air)
+		print(air_data, air_data_quantity)
+
+		##############################################################################################################
+		# Insight: Improve Air Quality
+		##############################################################################################################
+		cursor_impAir = test_conn.cursor()
+		impAir_data, impAir_data_quantity = simple.getColumn("Community_Insight", "IMPROVE_AIR_QUALITY", cursor_impAir)
+		print(impAir_data, impAir_data_quantity)
+
+		##############################################################################################################
+		# Insight: Water Quality Issues
+		##############################################################################################################
+		cursor_water = test_conn.cursor()
+		water_data, water_data_quantity = simple.getColumn("Community_Insight", "WATER_QUALITY_ISSUES", cursor_water)
+		print(water_data, water_data_quantity)
+
+		##############################################################################################################
+		# Insight: Improve Water Quality
+		##############################################################################################################
+		cursor_impWater = test_conn.cursor()
+		impWater_data, impWater_data_quantity = simple.getColumn("Community_Insight", "IMPROVE_WATER_QUALITY", cursor_impWater)
+		print(impWater_data, impWater_data_quantity)
+
+		##############################################################################################################
+		# Insight: Green Spaces
+		##############################################################################################################
+		cursor_green = test_conn.cursor()
+		green_data, green_data_quantity = simple.getColumn("Community_Insight", "GREEN_SPACES", cursor_green)
+		print(green_data, green_data_quantity)
+
+		##############################################################################################################
+		# Insight: Invest Green Spaces
+		##############################################################################################################
+		cursor_invGreen = test_conn.cursor()
+		invGreen_data, invGreen_data_quantity = simple.getColumn("Community_Insight", "INVEST_GREEN_SPACES", cursor_invGreen)
+		print(invGreen_data, invGreen_data_quantity)
+
+		##############################################################################################################
+		# Insight: Use Green Spaces
+		##############################################################################################################
+		cursor_useGreen = test_conn.cursor()
+		useGreen_data, useGreen_data_quantity = simple.getColumn("Community_Insight", "USE_GREEN_SPACES", cursor_useGreen)
+		print(useGreen_data, useGreen_data_quantity)
+
+		##############################################################################################################
+		# Insight: More Community Space
+		##############################################################################################################
+		cursor_space = test_conn.cursor()
+		space_data, space_data_quantity = simple.getColumn("Community_Insight", "MORE_COMMUNITY_SPACE", cursor_space)
+		print(space_data, space_data_quantity)
+
+		##############################################################################################################
+		# Insight: Increase School Funding
+		##############################################################################################################
+		cursor_fund = test_conn.cursor()
+		fund_data, fund_data_quantity = simple.getColumn("Community_Insight", "INCREASE_SCHOOL_FUNDING", cursor_fund)
+		print(fund_data, fund_data_quantity)
+
+		##############################################################################################################
+		# Insight: Affordable Utilities
+		##############################################################################################################
+		cursor_util = test_conn.cursor()
+		util_data, util_data_quantity = simple.getColumn("Community_Insight", "AFFORDABLE_UTILITIES", cursor_util)
+		print(util_data, util_data_quantity)
+
+		##############################################################################################################
+		# Insight: Better Infrastructure
+		##############################################################################################################
+		cursor_infra = test_conn.cursor()
+		infra_data, infra_data_quantity = simple.getColumn("Community_Insight", "BETTER_INFRASTRUCTURE", cursor_infra)
+		print(infra_data, infra_data_quantity)
+
+		##############################################################################################################
+		# Insight: Better Transport
+		##############################################################################################################
+		cursor_transport = test_conn.cursor()
+		transport_data, transport_data_quantity = simple.getColumn("Community_Insight", "BETTER_TRANSPORT", cursor_transport)
+		print(transport_data, transport_data_quantity)
+
+		##############################################################################################################
+		# Insight: Participation Interest
+		##############################################################################################################
+		cursor_interest = test_conn.cursor()
+		interest_data, interest_data_quantity = simple.getColumn("Community_Insight", "PARTICIPATION_INTEREST", cursor_interest)
+		print(interest_data, interest_data_quantity)
+
+		'''
+		total_green_data = ["Yes", "No", "on"]
+		total_green_quantity = [sum(
+			green_data_quantity[green_data_quantity.index("Yes")], 
+			invGreen_data_quantity[invGreen_data_quantity.index("Yes")], 
+			useGreen_data_quantity[useGreen_data_quantity.index("Yes")]
+			),sum(
+			green_data_quantity[green_data_quantity.index("No")], 
+			invGreen_data_quantity[invGreen_data_quantity.index("No")], 
+			useGreen_data_quantity[useGreen_data_quantity.index("No")]
+			),sum(
+			green_data_quantity[green_data_quantity.index("on")], 
+			invGreen_data_quantity[invGreen_data_quantity.index("on")], 
+			useGreen_data_quantity[useGreen_data_quantity.index("on")]
+			)]'''
+
+		plot_data = [
+			just_data, just_data_quantity,
+			seen_data, seen_data_quantity,
+			air_data, air_data_quantity,
+			impAir_data, impAir_data_quantity,
+			water_data, water_data_quantity,
+			impWater_data, impWater_data_quantity,
+			green_data, green_data_quantity,
+			invGreen_data, invGreen_data_quantity,
+			useGreen_data, useGreen_data_quantity,
+			space_data, space_data_quantity,
+			fund_data, fund_data_quantity,
+			util_data, util_data_quantity,
+			infra_data, infra_data_quantity,
+			transport_data, transport_data_quantity,
+			interest_data, interest_data_quantity,
+			#total_green_data, total_green_quantity
+		]
+
+		return render_template('surveyplotinsight.html', plot_data=plot_data)
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
