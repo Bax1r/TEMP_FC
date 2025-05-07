@@ -164,31 +164,201 @@
             <!--Initialize charts-->
 
             <!--Row 1-->
-            <div style="display: flex;">
-                <!--General Info: Recommend-->
+            <div style="display: flex; justify-content: center;">
+                <!--Community Insight: Community Environmental Justice-->
                 <div class="chart-container">
-                    <canvas id="recommend" style="width:100%;max-width:500px"></canvas>
+                    <canvas id="just" style="width:100%;max-width:300px"></canvas>
                 </div>
-                <!--General Info: Role-->
+                <!--Community Insight: Seen Environmental Justice-->
                 <div class="chart-container">
-                    <canvas id="role" style="width:100%;max-width:500px"></canvas>
+                    <canvas id="seen" style="width:100%;max-width:300px"></canvas>
                 </div>
-                <!--General Info: Gender-->
-                <div class="chart-container">
-                    <canvas id="gender" style="width:100%;max-width:500px"></canvas>
-                </div>
+                
             </div>
             <!--Row 2-->
-            <div style="display: flex;">
-                <!--General Info: Pronouns-->
+            <div style="display: flex; justify-content: center;">
+                <!--Community Insight: Air Quality Issues-->
                 <div class="chart-container">
-                    <canvas id="pronouns" style="width:100%;max-width:500px"></canvas>
+                    <canvas id="air" style="width:100%;max-width:300px"></canvas>
                 </div>
-                <!--General Info: Programs-->
+                <!--Community Insight: Improve Air Quality-->
                 <div class="chart-container">
-                    <canvas id="programs" style="width:100%;max-width:500px"></canvas>
+                    <canvas id="impAir" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Water Quality Issues-->
+                <div class="chart-container">
+                    <canvas id="water" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Improve Water Quality-->
+                <div class="chart-container">
+                    <canvas id="impWater" style="width:100%;max-width:300px"></canvas>
                 </div>
             </div>
+            <!--Row 3-->
+            <div style="display: flex; justify-content: center;">
+                <!--Community Insight: Green Spaces-->
+                <div class="chart-container">
+                    <canvas id="green" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Invest Green Spaces-->
+                <div class="chart-container">
+                    <canvas id="invGreen" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Use Green Spaces-->
+                <div class="chart-container">
+                    <canvas id="useGreen" style="width:100%;max-width:300px"></canvas>
+                </div>
+            </div>
+            <!--Row 4-->
+            <div style="display: flex; justify-content: center;">
+                <!--Community Insight: More Community Space-->
+                <div class="chart-container">
+                    <canvas id="space" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Increase School Fundings-->
+                <div class="chart-container">
+                    <canvas id="fund" style="width:100%;max-width:300px"></canvas>
+                </div>
+            </div>
+            <!--Row 5-->
+            <div style="display: flex; justify-content: center;">
+                <!--Community Insight: Affordable Utilities-->
+                <div class="chart-container">
+                    <canvas id="util" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Better Infrastructure-->
+                <div class="chart-container">
+                    <canvas id="infra" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Better Transport-->
+                <div class="chart-container">
+                    <canvas id="transport" style="width:100%;max-width:300px"></canvas>
+                </div>
+            </div>
+            <!--Row 6-->
+            <div style="display: flex; justify-content: center;">
+                <!--Community Insight: Participation Interest-->
+                <div class="chart-container">
+                    <canvas id="interest" style="width:100%;max-width:300px"></canvas>
+                </div>
+                <!--Community Insight: Total Green-->
+                <!--<div class="chart-container">-->
+                <!--<canvas id="total_green" style="width:100%;max-width:300px"></canvas>-->
+                <!--</div>-->
+            </div>
+
+            
+
+            <!--Initialize plotting data-->
+            <div id="plot_data_container" plot_data='{{ plot_data|tojson}}'></div>
+        
+            <script>
+            
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //Convert plotting data into something plottable
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            const plot_data_container = document.getElementById('plot_data_container');
+            const plot_data_translated = JSON.parse(plot_data_container.getAttribute('plot_data'));
+            console.log(plot_data_translated)
+
+            x_just = plot_data_translated[0]
+            y_just = plot_data_translated[1]
+            x_seen = plot_data_translated[2]
+            y_seen = plot_data_translated[3]
+            x_air = plot_data_translated[4]
+            y_air = plot_data_translated[5]
+            x_impAir = plot_data_translated[6]
+            y_impAir = plot_data_translated[7]
+            x_water = plot_data_translated[8]
+            y_water = plot_data_translated[9]  
+            x_impWater = plot_data_translated[10]
+            y_impWater = plot_data_translated[11]
+            x_green = plot_data_translated[12]
+            y_green = plot_data_translated[13]
+            x_invGreen = plot_data_translated[14]
+            y_invGreen = plot_data_translated[15]
+            x_useGreen = plot_data_translated[16]
+            y_useGreen = plot_data_translated[17]
+            x_space = plot_data_translated[18]
+            y_space = plot_data_translated[19] 
+            x_fund = plot_data_translated[20]
+            y_fund = plot_data_translated[21]
+            x_util = plot_data_translated[22]
+            y_util = plot_data_translated[23]
+            x_infra = plot_data_translated[24]
+            y_infra = plot_data_translated[25]
+            x_transport = plot_data_translated[26]
+            y_transport = plot_data_translated[27]
+            x_interest = plot_data_translated[28]
+            y_interest = plot_data_translated[29] 
+            //x_total_green = plot_data_translated[30]
+            //y_total_green = plot_data_translated[31]
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //Make charts
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    const barColors = ["red", "orange","green","blue", "purple", "pink", "brown", "grey"];
+
+                    // Arguments: The chart id (string), x axis variables (list), y axis variables (list), label (string)
+                    function makeBarChart(id_string, x_vars, y_vars, label){
+                        new Chart(id_string, {
+                        type: "bar",
+                        data: {
+                            labels: x_vars,
+                            datasets: [{
+                                label: label,
+                                backgroundColor: barColors,
+                                data: y_vars
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }});
+                    }
+
+                    
+
+                    // Community Insight: Community Environmental Justice
+                    makeBarChart("just", x_just, y_just, "Community Environmental Justice");
+                    // Community Insight: Seen Environmental Justice
+                    makeBarChart("seen", x_seen, y_seen, "Seen Environmental Justice");
+                    // Community Insight: Air Quality Issues
+                    makeBarChart("air", x_air, y_air, "Air Quality Issues");
+                    // Community Insight: Improve Air Quality
+                    makeBarChart("impAir", x_impAir, y_impAir, "Improve Air Quality");
+                    // Community Insight: Water Quality Issues
+                    makeBarChart("water", x_water, y_water, "Water Quality Issues");
+                    // Community Insight: Improve Air Quality
+                    makeBarChart("impWater", x_impWater, y_impWater, "Improve Water Quality");
+                    // Community Insight: Green Spaces
+                    makeBarChart("green", x_green, y_green, "Green Spaces");
+                    // Community Insight: Invest Green Spaces
+                    makeBarChart("invGreen", x_invGreen, y_invGreen, "Invest Green Spaces");
+                    // Community Insight: Use Green Spaces
+                    makeBarChart("useGreen", x_useGreen, y_useGreen, "Use Green Spaces");
+                    // Community Insight: More Community Space
+                    makeBarChart("space", x_space, y_space, "More Community Space");
+                    // Community Insight: Increase School Fundings
+                    makeBarChart("fund", x_fund, y_fund, "Increase School Fundings");
+                    // Community Insight: Affordable Utilities
+                    makeBarChart("util", x_util, y_util, "Affordable Utilities");
+                    // Community Insight: Better Infrastructure
+                    makeBarChart("infra", x_infra, y_infra, "Better Infrastructure");
+                    // Community Insight: Better Transport
+                    makeBarChart("transport", x_transport, y_transport, "Better Transport");
+                    // Community Insight: Participation Interest
+                    makeBarChart("interest", x_interest, y_interest, "Participation Interest");
+                    // Community Insight: Total Green Data
+                    //makeBarChart("total_green", x_total_green, y_total_green, "Total Green Data");
+            </script>
         </div>
         <footer>
             <p>© 2025 SFSU ENGR 340 Team. All rights reserved.</p>
